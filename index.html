@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Media Privacy Project</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans scroll-smooth">
+
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center py-4 px-6">
+      <h1 class="text-xl font-bold text-indigo-600">Privacy Project</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#about" class="hover:text-indigo-600">About</a></li>
+          <li><a href="#platforms" class="hover:text-indigo-600">Platforms</a></li>
+          <li><a href="#comparison" class="hover:text-indigo-600">Comparison</a></li>
+          <li><a href="#resources" class="hover:text-indigo-600">Resources</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="bg-indigo-600 text-white text-center py-16 px-6">
+    <h2 class="text-4xl font-bold mb-4">Making Social Media Privacy Easy</h2>
+    <p class="max-w-2xl mx-auto text-lg">We turn long Terms & Conditions into plain English. Explore risks, see comparisons, and learn how to protect your data.</p>
+  </section>
+
+  <section id="about" class="container mx-auto py-12 px-6">
+    <h3 class="text-2xl font-semibold mb-4">About This Project</h3>
+    <p class="text-lg leading-relaxed">
+      Social media platforms collect massive amounts of personal data — but most users don’t realize what’s happening.  
+      Our goal: make privacy risks simple and approachable with breakdowns, charts, risk ratings, and practical guides.
+    </p>
+  </section>
+
+  <section id="platforms" class="bg-gray-100 py-12 px-6">
+    <div class="container mx-auto">
+      <h3 class="text-2xl font-semibold mb-6">Explore by Platform</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- First social media -->
+        <div class="bg-white shadow rounded-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1">
+          <h4 class="text-xl font-bold mb-2 text-indigo-600">First social media</h4>
+          <p class="text-gray-600 mb-4">Understand the tracking and risks.</p>
+          <button onclick="openModal('Instagram')" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Adjust Settings</button>
+        </div>
+        <!-- Second social media -->
+        <div class="bg-white shadow rounded-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1">
+          <h4 class="text-xl font-bold mb-2 text-pink-600">Second social media</h4>
+          <p class="text-gray-600 mb-4">Understand the tracking and risks.</p>
+          <button onclick="openModal('TikTok')" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700">Adjust Settings</button>
+        </div>
+        <!-- Third social media -->
+        <div class="bg-white shadow rounded-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1">
+          <h4 class="text-xl font-bold mb-2 text-blue-500">Third social media</h4>
+          <p class="text-gray-600 mb-4">Breakdown of privacy practices.</p>
+          <button onclick="openModal('Twitter')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Adjust Settings</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="comparison" class="container mx-auto py-12 px-6">
+    <h3 class="text-2xl font-semibold mb-6">Risk Comparison</h3>
+    <canvas id="riskChart" class="max-w-2xl mx-auto"></canvas>
+  </section>
+
+  <section id="resources" class="bg-gray-100 container mx-auto py-12 px-6 rounded-lg">
+    <h3 class="text-2xl font-semibold mb-4">Resources</h3>
+    <ul class="list-disc list-inside text-lg space-y-2">
+      <li>Comparison charts of data collection</li>
+      <li>Risk ratings for each platform</li>
+      <li>Step-by-step guides to improve your privacy</li>
+    </ul>
+  </section>
+
+  <footer class="bg-gray-800 text-white text-center py-6 mt-12">
+    <p>&copy; 2025 Privacy Project. Built by Zoie, Allie, and Joon.</p>
+  </footer>
+
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+      <h3 id="modalTitle" class="text-xl font-bold mb-4">Platform Settings</h3>
+      <p class="mb-4">Here you’ll find a step-by-step guide for improving privacy on this platform.</p>
+      <button onclick="closeModal()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('riskChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['Data Collection', 'Ad Targeting', 'Location Tracking', 'Third-Party Sharing', 'Transparency'],
+        datasets: [
+          {
+            label: 'Instagram',
+            data: [4, 5, 4, 4, 2],
+            fill: true,
+            backgroundColor: 'rgba(99, 102, 241, 0.2)',
+            borderColor: 'rgb(99, 102, 241)',
+            pointBackgroundColor: 'rgb(99, 102, 241)'
+          },
+          {
+            label: 'TikTok',
+            data: [5, 5, 5, 5, 1],
+            fill: true,
+            backgroundColor: 'rgba(236, 72, 153, 0.2)',
+            borderColor: 'rgb(236, 72, 153)',
+            pointBackgroundColor: 'rgb(236, 72, 153)'
+          },
+          {
+            label: 'Twitter',
+            data: [4, 4, 3, 4, 2],
+            fill: true,
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderColor: 'rgb(59, 130, 246)',
+            pointBackgroundColor: 'rgb(59, 130, 246)'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: { r: { beginAtZero: true, max: 5 } }
+      }
+    });
+
+    function openModal(platform) {
+      document.getElementById("modalTitle").innerText = platform + " Privacy Settings";
+      document.getElementById("modal").classList.remove("hidden");
+    }
+    function closeModal() {
+      document.getElementById("modal").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
