@@ -1,133 +1,117 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Snapchat — Privacy Breakdown</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Snapchat — Privacy</title>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
   <header class="header">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
       <div class="brand">Privacy Project</div>
-      <nav>
-        <a href="index.html" style="margin-right:12px;color:#374151">Home</a>
-        <a href="tiktok.html" style="margin-right:12px;color:#374151">TikTok</a>
-        <a href="instagram.html" style="color:#374151">Instagram</a>
+      <nav style="display:flex;gap:12px">
+        <a href="index.html" class="small-muted">Home</a>
+        <a href="tiktok.html" class="small-muted">TikTok</a>
+        <a href="instagram.html" class="small-muted">Instagram</a>
       </nav>
     </div>
   </header>
 
-  <main class="container" style="padding:28px 0;">
-    <div style="display:flex;gap:18px;flex-wrap:wrap;">
-      <div style="flex:1;min-width:300px;" class="card">
-        <h2 style="margin:0 0 8px;">Snapchat — What data is collected</h2>
-        <div class="accordion-group" style="margin-top:10px;">
+  <main class="container" style="padding-top:18px;">
+    <section class="card grid-2">
+      <div class="col-main">
+        <h2 style="margin:0 0 8px">Snapchat — What is collected</h2>
+
+        <div class="accordion-group" style="margin-top:12px">
           <button class="accordion-btn">Provided by you</button>
           <div class="panel hidden">
             <ul>
               <li>Account info (username, phone, email)</li>
-              <li>User-generated content: Snaps, Stories, messages</li>
-              <li>Contacts you choose to upload</li>
+              <li>Snaps, Stories, messages, Memories</li>
+              <li>Contacts you upload</li>
             </ul>
           </div>
 
           <button class="accordion-btn">From other sources</button>
           <div class="panel hidden">
             <ul>
-              <li>Linked apps (Bitmoji, Snap Kit), mentions by users, ad partners</li>
+              <li>Linked apps (Bitmoji, Snap Kit), ad/analytics partners</li>
             </ul>
           </div>
 
           <button class="accordion-btn">Automatically collected</button>
           <div class="panel hidden">
             <ul>
-              <li>Device details, IP, cookies, analytics</li>
-              <li>Approximate or precise location (GPS/Wi-Fi)</li>
-              <li>Engagement patterns and metadata (which filters you use)</li>
+              <li>Device details, IP, cookies, sensors</li>
+              <li>Approximate/precise location (GPS/Wi-Fi)</li>
+              <li>Engagement patterns, lens/filter usage</li>
             </ul>
           </div>
         </div>
+
       </div>
 
-      <div style="width:340px;" class="card">
-        <div class="chart-row">
-          <div class="chart-wrap" style="height:150px;">
-            <canvas id="snapMini" style="width:100%;height:150px;"></canvas>
+      <aside class="col-side">
+        <div class="card">
+          <div class="chart-row">
+            <div class="chart-wrap">
+              <canvas id="snapMini"></canvas>
+            </div>
+
+            <div class="legend-box">
+              <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+
+              <div class="legend-row legend-high">
+                <div class="legend-dot" style="background:var(--high)"></div>
+                <div>
+                  <div class="legend-title">High — Major collection & sharing</div>
+                  <div class="legend-desc">Collects identity & device data and shares with advertisers & analytics partners; used for ads and measurement.</div>
+                </div>
+              </div>
+
+              <div class="legend-row legend-medium">
+                <div class="legend-dot" style="background:var(--medium)"></div>
+                <div>
+                  <div class="legend-title">Medium — Moderate collection</div>
+                  <div class="legend-desc">Collects location & engagement data; shares with partners but often retains data for shorter periods and has fewer cross-app integrations.</div>
+                </div>
+              </div>
+
+              <div class="legend-row legend-low">
+                <div class="legend-dot" style="background:var(--low)"></div>
+                <div>
+                  <div class="legend-title">Low — Minimal collection</div>
+                  <div class="legend-desc">Only essential data and limited sharing.</div>
+                </div>
+              </div>
+
+            </div>
           </div>
 
-          <div class="legend-box">
-            <div style="font-weight:700;margin-bottom:6px">Risk Level Key</div>
-
-            <div class="legend-row legend-high">
-              <div class="legend-dot" style="background:var(--high)"></div>
-              <div>
-                <div style="font-weight:700">High — Major collection & sharing</div>
-                <div class="legend-desc">Collects extensive personal & device data and shares widely with advertisers, analytics partners, and for business purposes.</div>
-              </div>
-            </div>
-
-            <div class="legend-row legend-medium">
-              <div class="legend-dot" style="background:var(--medium)"></div>
-              <div>
-                <div style="font-weight:700">Medium — Moderate collection</div>
-                <div class="legend-desc">Collects location and engagement data; shares with partners but often retains shorter retention and fewer cross-platform integrations compared to the highest-risk platforms.</div>
-              </div>
-            </div>
-
-            <div class="legend-row legend-low">
-              <div class="legend-dot" style="background:var(--low)"></div>
-              <div>
-                <div style="font-weight:700">Low — Minimal collection</div>
-                <div class="legend-desc">Only essential data and limited sharing.</div>
-              </div>
-            </div>
-
+          <div style="margin-top:12px">
+            <button id="snapTipBtn" class="btn" style="background:black;color:#fff">Give me a tip</button>
+            <a class="btn btn-alt" href="index.html" style="margin-left:8px">Home</a>
+            <p id="snapTipText" style="margin-top:8px;color:var(--muted)"></p>
           </div>
         </div>
-
-        <div style="margin-top:12px;">
-          <h4 style="margin:0 0 6px;">Quick actions</h4>
-          <ol class="small-muted" style="padding-left:18px;">
-            <li>Enable Ghost Mode in Snap Map to hide real-time location.</li>
-            <li>Set Stories to Friends or Custom and disable Quick Add.</li>
-            <li>Turn off contact syncing if you want fewer matches.</li>
-            <li>Enable login verification (2FA).</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <section style="margin-top:18px;" class="card">
-      <h4 style="margin:0 0 8px;">If you suspect an account breach</h4>
-      <ol class="small-muted" style="padding-left:18px;">
-        <li>Change password, enable 2FA, and log out open sessions.</li>
-        <li>Download your data if needed and document evidence of impersonation.</li>
-        <li>Report to Snapchat support and follow their recommended recovery steps.</li>
-      </ol>
-
-      <div style="margin-top:10px;">
-        <button id="snapTipBtn" class="btn" style="background:black;color:#fff">Give me a Snapchat tip</button>
-        <a class="btn btn-alt" href="index.html">Back to home</a>
-      </div>
-      <p id="snapTipText" style="margin-top:8px;color:#374151"></p>
+      </aside>
     </section>
-
   </main>
 
   <footer class="footer">© 2025 Social Media Privacy Project</footer>
 
   <script src="script.js"></script>
   <script>
-    // Snapchat donut (Medium)
-    makeSmallDonut('snapMini',[22,38,40]);
-    attachTipButton('snapTipBtn','snapTipText',[
-      'Enable Ghost Mode in Snap Map to hide your real-time location.',
-      'Set Stories to Friends only and limit who can message you.',
-      'Disable contact syncing to avoid exposing your phonebook.'
-    ]);
+    // Snapchat tip
+    (function(){
+      const tips = ['Enable Ghost Mode to hide location','Set Stories to Friends only','Disable contact sync'];
+      const btn = document.getElementById('snapTipBtn');
+      if(btn) btn.addEventListener('click', ()=> document.getElementById('snapTipText').textContent = tips[Math.floor(Math.random()*tips.length)]);
+    })();
   </script>
 </body>
 </html>
