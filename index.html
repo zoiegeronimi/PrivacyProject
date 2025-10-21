@@ -1,130 +1,532 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>TikTok — Privacy</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Social Media Privacy — Quick Guide</title>
 
-  <!-- Chart.js -->
+  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="style.css"/>
+
+  <!-- Inline CSS: clean, minimal, teal/green theme -->
+  <style>
+    :root{
+      --bg: #f6faf9;
+      --card: #ffffff;
+      --muted: #5b6b6a;
+      --accent: #0ea5a4; /* teal */
+      --accent-dark: #0b877f;
+      --high: #e63946;
+      --medium: #f4a261;
+      --low: #2a9d8f;
+      --radius: 12px;
+      --max-width: 980px;
+      --shadow: 0 8px 22px rgba(6,10,10,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:var(--bg);color:#052423}
+    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
+
+    /* Header */
+    header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+    .brand{font-weight:800;color:var(--accent-dark);font-size:1.1rem}
+    nav a{margin-left:14px;color:var(--muted);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--accent-dark)}
+
+    /* Hero */
+    .hero{background:linear-gradient(180deg, rgba(14,165,164,0.06), rgba(255,255,255,0.6));padding:28px;border-radius:14px;box-shadow:var(--shadow);margin-bottom:18px}
+    .hero h1{margin:0 0 6px;font-size:1.6rem}
+    .hero p{margin:0;color:var(--muted)}
+
+    /* Tabs */
+    .tabs{display:flex;gap:8px;margin-top:16px;margin-bottom:18px;flex-wrap:wrap}
+    .tab-btn{padding:8px 12px;border-radius:10px;border:1px solid transparent;background:transparent;cursor:pointer;font-weight:700;color:var(--muted)}
+    .tab-btn.active{background:var(--accent);color:white;border-color:rgba(11,135,127,0.12);box-shadow:0 6px 18px rgba(11,135,127,0.08)}
+
+    /* Content card */
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
+    .grid{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+    .main{flex:1;min-width:280px}
+    .side{width:340px;min-width:240px}
+
+    h2{margin:0 0 8px;font-size:1.15rem}
+    .muted{color:var(--muted);font-size:0.95rem}
+
+    /* Chart + legend */
+    .chart-row{display:flex;gap:12px;align-items:center}
+    .chart-wrap{width:150px;height:140px}
+    canvas{display:block;max-width:100%}
+    .legend{width:100%;max-width:220px;padding:10px;border-radius:10px;background:#fbfffe;border:1px solid rgba(6,10,10,0.04)}
+    .legend .row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;border-radius:8px}
+    .dot{width:14px;height:14px;border-radius:4px;margin-top:4px;flex-shrink:0}
+    .title{font-weight:700;font-size:0.95rem}
+    .desc{color:var(--muted);font-size:0.88rem;margin-top:4px}
+
+    .legend-high{background:linear-gradient(90deg, rgba(230,57,70,0.06), rgba(230,57,70,0.02))}
+    .legend-medium{background:linear-gradient(90deg, rgba(244,162,97,0.06), rgba(244,162,97,0.02))}
+    .legend-low{background:linear-gradient(90deg, rgba(42,157,143,0.06), rgba(42,157,143,0.02))}
+
+    /* Accordion */
+    .accordion-btn{width:100%;display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;border:1px solid rgba(5,36,35,0.04);background:#fbfdfc;cursor:pointer;font-weight:700;margin-top:8px}
+    .panel{padding:10px;margin-top:8px;border-radius:8px;background:#fff;border:1px solid rgba(5,36,35,0.03)}
+    .hidden{display:none}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700;cursor:pointer}
+    .btn-outline{background:transparent;border:1px solid rgba(5,36,35,0.06);color:var(--muted);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+
+    /* footer */
+    footer{margin-top:18px;padding:12px;text-align:center;color:var(--muted);font-size:0.95rem}
+
+    /* Responsive */
+    @media (max-width:880px){
+      .grid{flex-direction:column}
+      .side{width:100%}
+      .chart-row{flex-direction:row;justify-content:flex-start}
+      .legend{max-width:100%}
+    }
+  </style>
 </head>
 <body>
-
-  <header class="header">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
-      <div class="brand">Privacy Project</div>
-      <nav style="display:flex;gap:12px">
-        <a href="index.html" class="small-muted">Home</a>
-        <a href="instagram.html" class="small-muted">Instagram</a>
-        <a href="snapchat.html" class="small-muted">Snapchat</a>
+  <div class="container">
+    <header>
+      <div class="brand">Social Media Privacy — Quick Guide</div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#platforms">Platforms</a>
+        <a href="#resources">Resources</a>
       </nav>
-    </div>
-  </header>
+    </header>
 
-  <main class="container" style="padding-top:18px;">
-    <section class="card grid-2">
-      <div class="col-main">
-        <h2 style="margin:0 0 8px">TikTok — What is collected</h2>
-        <p class="small-muted">(Policy applies to users 13+)</p>
+    <section class="hero card" id="about" aria-labelledby="hero-heading">
+      <h1 id="hero-heading">Understand what platforms collect & how to protect yourself</h1>
+      <p class="muted">We break down policies into clear summaries, show a quick risk rating, and give practical steps you can take if something goes wrong.</p>
 
-        <div class="accordion-group" style="margin-top:12px">
-          <button class="accordion-btn">Provided by you</button>
-          <div class="panel hidden">
-            <ul>
-              <li>Account info (name, age, email)</li>
-              <li>User content: videos, comments, messages</li>
-              <li>Payment details, survey responses, ID verification docs</li>
-            </ul>
-          </div>
-
-          <button class="accordion-btn">From other sources</button>
-          <div class="panel hidden">
-            <ul>
-              <li>Linked accounts (Google, Facebook), advertisers, affiliates, public records</li>
-            </ul>
-          </div>
-
-          <button class="accordion-btn">Automatically collected</button>
-          <div class="panel hidden">
-            <ul>
-              <li>Device details, IP, cookies, metadata, engagement patterns</li>
-              <li>Approximate location (U.S.), clipboard (with permission)</li>
-              <li>Biometric identifiers (face/voice) with consent</li>
-            </ul>
-          </div>
-        </div>
-
-        <div style="margin-top:12px">
-          <h4 style="margin:0 0 6px">If your account is compromised</h4>
-          <ol class="small-muted" style="padding-left:18px;">
-            <li>Change password & enable 2FA immediately</li>
-            <li>Revoke third-party app access and unlink accounts</li>
-            <li>Report impersonation to TikTok support & document evidence</li>
-          </ol>
-        </div>
+      <!-- Tabs -->
+      <div class="tabs" role="tablist" aria-label="Choose platform">
+        <button class="tab-btn active" data-tab="tiktok" role="tab" aria-selected="true">TikTok</button>
+        <button class="tab-btn" data-tab="instagram" role="tab" aria-selected="false">Instagram</button>
+        <button class="tab-btn" data-tab="snapchat" role="tab" aria-selected="false">Snapchat</button>
       </div>
-
-      <aside class="col-side">
-        <div class="card">
-          <div class="chart-row">
-            <div class="chart-wrap">
-              <canvas id="tiktokMini"></canvas>
-            </div>
-            <div class="legend-box">
-              <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
-
-              <div class="legend-row legend-high">
-                <div class="legend-dot" style="background:var(--high)"></div>
-                <div>
-                  <div class="legend-title">High — Major collection & sharing</div>
-                  <div class="legend-desc">Collects identity, messages, contacts, biometrics, device & browsing data; shares with advertisers, affiliates, and partners; used for ad personalization & AI training.</div>
-                </div>
-              </div>
-
-              <div class="legend-row legend-medium">
-                <div class="legend-dot" style="background:var(--medium)"></div>
-                <div>
-                  <div class="legend-title">Medium — Moderate collection</div>
-                  <div class="legend-desc">Collects many data types but may limit external sharing relative to highest-risk platforms.</div>
-                </div>
-              </div>
-
-              <div class="legend-row legend-low">
-                <div class="legend-dot" style="background:var(--low)"></div>
-                <div>
-                  <div class="legend-title">Low — Minimal collection</div>
-                  <div class="legend-desc">Only essential data and limited sharing.</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div style="margin-top:12px">
-            <button id="tiktokTipBtn" class="btn" style="background:var(--tiktok1);color:#000">Give me a tip</button>
-            <a class="btn btn-alt" href="index.html" style="margin-left:8px">Back home</a>
-            <p id="tiktokTipText" style="margin-top:8px;color:var(--muted)"></p>
-          </div>
-        </div>
-      </aside>
     </section>
-  </main>
 
-  <footer class="footer">© 2025 Social Media Privacy Project</footer>
+    <!-- Platform content area (single-page tabs) -->
+    <section id="platforms">
 
-  <script src="script.js"></script>
+      <!-- TikTok -->
+      <article id="tiktok" class="card platform" role="tabpanel">
+        <div class="grid">
+          <div class="main">
+            <h2>TikTok — What this platform collects</h2>
+            <p class="muted">Policy applies to users 13+. Summary of the main data categories TikTok collects.</p>
+
+            <div class="accordion-group">
+              <button class="accordion-btn" aria-expanded="false">Provided by you</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Account info (name, age, email)</li>
+                  <li>User-generated content (videos, comments, messages)</li>
+                  <li>Payment details, contests/surveys, ID verification documents</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">From other sources</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Linked third-party accounts (Google, Facebook)</li>
+                  <li>Advertisers, affiliates, public records, mentions</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">Automatically collected</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Device details, IP address, cookies, metadata</li>
+                  <li>Approximate location (U.S.), clipboard (with permission)</li>
+                  <li>Biometric identifiers (face/voice) with consent; engagement patterns</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 style="margin-top:12px">If your account is compromised</h3>
+            <ol class="muted">
+              <li>Change your password & enable two-factor authentication (2FA).</li>
+              <li>Revoke connected apps and unlink social accounts; document impersonation evidence.</li>
+              <li>Report to TikTok support and follow recovery steps.</li>
+            </ol>
+          </div>
+
+          <aside class="side">
+            <div class="card">
+              <div class="chart-row">
+                <div class="chart-wrap">
+                  <canvas id="tiktokChart" width="300" height="260" aria-label="TikTok risk chart"></canvas>
+                </div>
+
+                <div class="legend" aria-hidden="false">
+                  <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+
+                  <div class="row legend-high">
+                    <div class="dot" style="background:var(--high)"></div>
+                    <div>
+                      <div class="title">High — Major collection & sharing</div>
+                      <div class="desc">Collects identity, messages, contacts, biometrics, device & browsing data; shares with advertisers, affiliates & partners; used for ad personalization and AI training.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-medium">
+                    <div class="dot" style="background:var(--medium)"></div>
+                    <div>
+                      <div class="title">Medium — Moderate collection</div>
+                      <div class="desc">Collects many data types but shares less externally and may limit retention or cross-platform tracking.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-low">
+                    <div class="dot" style="background:var(--low)"></div>
+                    <div>
+                      <div class="title">Low — Minimal collection</div>
+                      <div class="desc">Only essential account data; limited tracking and sharing.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div style="margin-top:12px">
+                <button id="tiktokTip" class="btn" aria-controls="tiktokTipText">Give me a quick tip</button>
+                <button class="btn-outline" onclick="document.querySelector('[data-tab=\"instagram\"]').click()">View Instagram</button>
+                <p id="tiktokTipText" class="muted" style="margin-top:10px"></p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </article>
+
+      <!-- Instagram -->
+      <article id="instagram" class="card platform" role="tabpanel" hidden>
+        <div class="grid">
+          <div class="main">
+            <h2>Instagram — What this platform collects</h2>
+            <p class="muted">Policy applies to users 13+. Summary of main categories Instagram/Meta collects and shares.</p>
+
+            <div class="accordion-group">
+              <button class="accordion-btn" aria-expanded="false">Provided by you</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Account info: username, profile photo, phone number, bio</li>
+                  <li>User-generated content: photos, videos, stories, DMs</li>
+                  <li>Contacts you upload via “Find Friends”</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">Automatically collected</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Device identifiers, IP, cookies, pixels, log file info</li>
+                  <li>Location (exact GPS if allowed), analytics & usage patterns</li>
+                  <li>Camera & photo access when granted</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">From other sources</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Data from Meta affiliates, advertisers, and third-party apps</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 style="margin-top:12px">If something goes wrong</h3>
+            <ol class="muted">
+              <li>Change password, enable 2FA, and check active sessions.</li>
+              <li>Remove connected apps and review account activity for unauthorized access.</li>
+              <li>Report impersonation and keep screenshots as evidence.</li>
+            </ol>
+          </div>
+
+          <aside class="side">
+            <div class="card">
+              <div class="chart-row">
+                <div class="chart-wrap">
+                  <canvas id="igChart" width="300" height="260" aria-label="Instagram risk chart"></canvas>
+                </div>
+
+                <div class="legend">
+                  <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+
+                  <div class="row legend-high">
+                    <div class="dot" style="background:var(--high)"></div>
+                    <div>
+                      <div class="title">High — Major collection & sharing</div>
+                      <div class="desc">Collects identity, device & analytics data and shares across Meta services and advertisers; used for cross-app tracking and profiling.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-medium">
+                    <div class="dot" style="background:var(--medium)"></div>
+                    <div>
+                      <div class="title">Medium — Moderate collection</div>
+                      <div class="desc">Collects many types but sharing is mostly within the Meta ecosystem or to partners.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-low">
+                    <div class="dot" style="background:var(--low)"></div>
+                    <div>
+                      <div class="title">Low — Minimal collection</div>
+                      <div class="desc">Only essential data and limited sharing with external parties.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div style="margin-top:12px">
+                <button id="igTip" class="btn">Give me a quick tip</button>
+                <button class="btn-outline" onclick="document.querySelector('[data-tab=&quot;snapchat&quot;]').click()">View Snapchat</button>
+                <p id="igTipText" class="muted" style="margin-top:10px"></p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </article>
+
+      <!-- Snapchat -->
+      <article id="snapchat" class="card platform" role="tabpanel" hidden>
+        <div class="grid">
+          <div class="main">
+            <h2>Snapchat — What this platform collects</h2>
+            <p class="muted">Snapchat collects a range of user and device data; below are common categories and quick actions.</p>
+
+            <div class="accordion-group">
+              <button class="accordion-btn" aria-expanded="false">Provided by you</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Account info (username, phone, email)</li>
+                  <li>User-generated content: Snaps, Stories, Messages, Memories</li>
+                  <li>Contacts you choose to upload</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">From other sources</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Linked apps (Bitmoji, Snap Kit), ad/analytics partners</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">Automatically collected</button>
+              <div class="panel hidden">
+                <ul class="muted">
+                  <li>Device details, IP, cookies, sensor data</li>
+                  <li>Approximate or precise location (GPS/Wi-Fi)</li>
+                  <li>Engagement patterns and metadata (filters used)</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 style="margin-top:12px">If you suspect an account breach</h3>
+            <ol class="muted">
+              <li>Change password, enable 2FA, and log out of other devices.</li>
+              <li>Download your data if needed and document impersonation evidence.</li>
+              <li>Report to Snapchat support and follow recovery steps.</li>
+            </ol>
+          </div>
+
+          <aside class="side">
+            <div class="card">
+              <div class="chart-row">
+                <div class="chart-wrap">
+                  <canvas id="snapChart" width="300" height="260" aria-label="Snapchat risk chart"></canvas>
+                </div>
+
+                <div class="legend">
+                  <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+
+                  <div class="row legend-high">
+                    <div class="dot" style="background:var(--high)"></div>
+                    <div>
+                      <div class="title">High — Major collection & sharing</div>
+                      <div class="desc">Collects identity & device data and shares with advertisers & analytics partners; used for ad targeting and measurement.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-medium">
+                    <div class="dot" style="background:var(--medium)"></div>
+                    <div>
+                      <div class="title">Medium — Moderate collection</div>
+                      <div class="desc">Collects location and engagement data; shares with partners but often retains shorter retention and fewer cross-app integrations.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-low">
+                    <div class="dot" style="background:var(--low)"></div>
+                    <div>
+                      <div class="title">Low — Minimal collection</div>
+                      <div class="desc">Only essential data and limited sharing.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div style="margin-top:12px">
+                <button id="snapTip" class="btn">Give me a quick tip</button>
+                <button class="btn-outline" onclick="document.querySelector('[data-tab=&quot;tiktok&quot;]').click()">Back to TikTok</button>
+                <p id="snapTipText" class="muted" style="margin-top:10px"></p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </article>
+
+    </section>
+
+    <section id="resources" class="card" style="margin-top:12px">
+      <h3 style="margin:0 0 8px">Resources</h3>
+      <ul class="muted">
+        <li><a href="https://www.eff.org/" target="_blank" rel="noopener">Electronic Frontier Foundation (EFF)</a></li>
+        <li><a href="https://www.consumer.ftc.gov/topics/privacy-identity-online-security" target="_blank" rel="noopener">FTC: Privacy & Security</a></li>
+        <li><a href="https://privacy.commonsense.org/" target="_blank" rel="noopener">Common Sense Privacy Reports</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p class="muted">© 2025 Social Media Privacy Project — Zoie, Allie & Joon</p>
+    </footer>
+  </div>
+
+  <!-- Inline JS: minimal, reliable -->
   <script>
-    // attach tip for TikTok
+    // Simple tab switching (T1): tabs with data-tab attribute
     (function(){
-      const tips = [
-        'Turn off contact syncing to avoid exposing phone contacts.',
-        'Use app-based authenticator for 2FA when possible.',
-        'Set account to private to reduce unwanted followers.'
-      ];
-      const btn = document.getElementById('tiktokTipBtn');
-      if(btn) btn.addEventListener('click', ()=> document.getElementById('tiktokTipText').textContent = tips[Math.floor(Math.random()*tips.length)]);
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const platforms = document.querySelectorAll('.platform');
+
+      function activateTab(name){
+        tabButtons.forEach(b=>{
+          const is = b.dataset.tab === name;
+          b.classList.toggle('active', is);
+          b.setAttribute('aria-selected', is ? 'true' : 'false');
+        });
+        platforms.forEach(p=>{
+          if(p.id === name) { p.hidden = false; p.setAttribute('aria-hidden','false'); }
+          else { p.hidden = true; p.setAttribute('aria-hidden','true'); }
+        });
+      }
+
+      tabButtons.forEach(btn=>{
+        btn.addEventListener('click', ()=> activateTab(btn.dataset.tab));
+      });
+
+      // default active
+      activateTab('tiktok');
     })();
+
+    // Accordions
+    (function(){
+      document.querySelectorAll('.accordion-btn').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const panel = btn.nextElementSibling;
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          // close siblings in the same group
+          const group = btn.closest('.accordion-group');
+          if(group){
+            group.querySelectorAll('.accordion-btn').forEach(b=>b.setAttribute('aria-expanded','false'));
+            group.querySelectorAll('.panel').forEach(p=>p.classList.add('hidden'));
+          }
+          if(!expanded){
+            btn.setAttribute('aria-expanded','true');
+            panel.classList.remove('hidden');
+          }
+        });
+      });
+    })();
+
+    // Tips
+    (function(){
+      const tiktokTips = [
+        'Turn off contact syncing to avoid exposing phone contacts.',
+        'Use an authenticator app for 2FA rather than SMS where possible.',
+        'Set your account to private to reduce unwanted followers.'
+      ];
+      const igTips = [
+        'Switch to a private account to limit reach.',
+        'Disconnect third-party apps you no longer use.',
+        'Turn off precise location when posting.'
+      ];
+      const snapTips = [
+        'Enable Ghost Mode to hide real-time location.',
+        'Set Stories to Friends only and disable Quick Add.',
+        'Disable contact syncing to avoid exposing your phonebook.'
+      ];
+
+      const tBtn = document.getElementById('tiktokTip');
+      if(tBtn) tBtn.addEventListener('click', ()=> { document.getElementById('tiktokTipText').textContent = tiktokTips[Math.floor(Math.random()*tiktokTips.length)]; });
+
+      const igBtn = document.getElementById('igTip');
+      if(igBtn) igBtn.addEventListener('click', ()=> { document.getElementById('igTipText').textContent = igTips[Math.floor(Math.random()*igTips.length)]; });
+
+      const sBtn = document.getElementById('snapTip');
+      if(sBtn) sBtn.addEventListener('click', ()=> { document.getElementById('snapTipText').textContent = snapTips[Math.floor(Math.random()*snapTips.length)]; });
+    })();
+
+    // Chart creation (Chart.js must be loaded)
+    (function(){
+      if(typeof Chart === 'undefined'){ console.error('Chart.js not loaded'); return; }
+
+      // Helper to create small donut chart
+      function createDonut(canvasId, values){
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        // ensure canvas size is reasonable for appearance
+        try {
+          return new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Low','Medium','High'],
+              datasets: [{
+                data: values,
+                backgroundColor: ['var(--low)','var(--medium)','var(--high)'].map(c => getComputedStyle(document.documentElement).getPropertyValue(c) || c),
+                hoverOffset: 6
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              cutout: '70%',
+              plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: function(context){ return context.label + ': ' + context.formattedValue + '%'; } } }
+              }
+            }
+          });
+        } catch (e) {
+          console.error('Chart render error', e);
+          return null;
+        }
+      }
+
+      // Create the three charts. Values tuned to emphasize High/Medium/Low per your notes.
+      // Values are percentages adding roughly to 100 (visual emphasis)
+      window._tiktokChart = createDonut('tiktokChart', [8,22,70]);   // TikTok: High
+      window._igChart = createDonut('igChart', [10,25,65]);         // Instagram: High
+      window._snapChart = createDonut('snapChart', [22,38,40]);     // Snapchat: Medium
+
+    })();
+
+    // Accessibility: allow keyboard tab switching (Left/Right arrows)
+    (function(){
+      const btns = Array.from(document.querySelectorAll('.tab-btn'));
+      document.addEventListener('keydown', (e)=>{
+        const activeIndex = btns.findIndex(b => b.classList.contains('active'));
+        if(e.key === 'ArrowLeft' && activeIndex > 0){ btns[activeIndex - 1].click(); btns[activeIndex - 1].focus(); }
+        if(e.key === 'ArrowRight' && activeIndex < btns.length - 1){ btns[activeIndex + 1].click(); btns[activeIndex + 1].focus(); }
+      });
+    })();
+
+    // Risk scale reference (0-3 low, 4-7 medium, 8-10 high)
+    // If you'd like a numeric scoring engine later I can add it — for now charts are illustrative.
   </script>
 </body>
 </html>
