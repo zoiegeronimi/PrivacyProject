@@ -7,6 +7,9 @@
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Inline CSS: clean, minimal, teal/green theme -->
   <style>
@@ -22,9 +25,10 @@
       --radius: 12px;
       --max-width: 980px;
       --shadow: 0 8px 22px rgba(6,10,10,0.06);
+      --transition: all 0.3s ease;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:var(--bg);color:#052423}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:var(--bg);color:#052423;line-height:1.6}
     .container{max-width:var(--max-width);margin:0 auto;padding:20px}
 
     /* Header */
@@ -40,11 +44,12 @@
 
     /* Tabs */
     .tabs{display:flex;gap:8px;margin-top:16px;margin-bottom:18px;flex-wrap:wrap}
-    .tab-btn{padding:8px 12px;border-radius:10px;border:1px solid transparent;background:transparent;cursor:pointer;font-weight:700;color:var(--muted)}
+    .tab-btn{padding:8px 12px;border-radius:10px;border:1px solid transparent;background:transparent;cursor:pointer;font-weight:700;color:var(--muted);transition:var(--transition)}
     .tab-btn.active{background:var(--accent);color:white;border-color:rgba(11,135,127,0.12);box-shadow:0 6px 18px rgba(11,135,127,0.08)}
 
     /* Content card */
-    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:16px;transition:var(--transition)}
+    .card:hover{box-shadow:0 10px 25px rgba(6,10,10,0.1)}
     .grid{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
     .main{flex:1;min-width:280px}
     .side{width:340px;min-width:240px}
@@ -67,13 +72,37 @@
     .legend-low{background:linear-gradient(90deg, rgba(42,157,143,0.06), rgba(42,157,143,0.02))}
 
     /* Accordion */
-    .accordion-btn{width:100%;display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;border:1px solid rgba(5,36,35,0.04);background:#fbfdfc;cursor:pointer;font-weight:700;margin-top:8px}
-    .panel{padding:10px;margin-top:8px;border-radius:8px;background:#fff;border:1px solid rgba(5,36,35,0.03)}
+    .accordion-btn{width:100%;display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;border:1px solid rgba(5,36,35,0.04);background:#fbfdfc;cursor:pointer;font-weight:700;margin-top:8px;transition:var(--transition)}
+    .accordion-btn:hover{background:#f0f5f4}
+    .panel{padding:10px;margin-top:8px;border-radius:8px;background:#fff;border:1px solid rgba(5,36,35,0.03);max-height:0;overflow:hidden;transition:max-height 0.3s ease, padding 0.3s ease}
+    .panel.active{max-height:500px;padding:10px}
     .hidden{display:none}
+    .accordion-icon{transition:transform 0.3s ease}
+    .accordion-btn.active .accordion-icon{transform:rotate(180deg)}
 
     /* Buttons */
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700;cursor:pointer}
-    .btn-outline{background:transparent;border:1px solid rgba(5,36,35,0.06);color:var(--muted);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700;cursor:pointer;transition:var(--transition)}
+    .btn:hover{background:var(--accent-dark);transform:translateY(-2px)}
+    .btn-outline{background:transparent;border:1px solid rgba(5,36,35,0.06);color:var(--muted);padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer;transition:var(--transition)}
+    .btn-outline:hover{background:rgba(5,36,35,0.03);transform:translateY(-2px)}
+
+    /* Platform comparison table */
+    .comparison-table{width:100%;border-collapse:collapse;margin-top:16px}
+    .comparison-table th, .comparison-table td{padding:12px;text-align:left;border-bottom:1px solid rgba(5,36,35,0.05)}
+    .comparison-table th{background:#f0f5f4;font-weight:700}
+    .comparison-table tr:hover{background:#f9fcfb}
+    .risk-badge{padding:4px 8px;border-radius:6px;font-size:0.8rem;font-weight:700}
+    .risk-high{background:var(--high);color:white}
+    .risk-medium{background:var(--medium);color:white}
+    .risk-low{background:var(--low);color:white}
+
+    /* Progress tracker */
+    .progress-tracker{display:flex;justify-content:space-between;margin:20px 0;position:relative}
+    .progress-tracker::before{content:'';position:absolute;top:15px;left:0;right:0;height:2px;background:#e0e6e5;z-index:1}
+    .progress-step{display:flex;flex-direction:column;align-items:center;position:relative;z-index:2}
+    .progress-dot{width:30px;height:30px;border-radius:50%;background:#e0e6e5;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:8px;transition:var(--transition)}
+    .progress-step.active .progress-dot{background:var(--accent);color:white}
+    .progress-label{font-size:0.8rem;color:var(--muted);text-align:center}
 
     /* footer */
     footer{margin-top:18px;padding:12px;text-align:center;color:var(--muted);font-size:0.95rem}
@@ -84,6 +113,7 @@
       .side{width:100%}
       .chart-row{flex-direction:row;justify-content:flex-start}
       .legend{max-width:100%}
+      .progress-tracker{flex-wrap:wrap;gap:10px}
     }
   </style>
 </head>
@@ -94,6 +124,7 @@
       <nav>
         <a href="#about">About</a>
         <a href="#platforms">Platforms</a>
+        <a href="#comparison">Comparison</a>
         <a href="#resources">Resources</a>
       </nav>
     </header>
@@ -107,6 +138,7 @@
         <button class="tab-btn active" data-tab="tiktok" role="tab" aria-selected="true">TikTok</button>
         <button class="tab-btn" data-tab="instagram" role="tab" aria-selected="false">Instagram</button>
         <button class="tab-btn" data-tab="snapchat" role="tab" aria-selected="false">Snapchat</button>
+        <button class="tab-btn" data-tab="linkedin" role="tab" aria-selected="false">LinkedIn</button>
       </div>
     </section>
 
@@ -121,8 +153,11 @@
             <p class="muted">Policy applies to users 13+. Summary of the main data categories TikTok collects.</p>
 
             <div class="accordion-group">
-              <button class="accordion-btn" aria-expanded="false">Provided by you</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                Provided by you
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Account info (name, age, email)</li>
                   <li>User-generated content (videos, comments, messages)</li>
@@ -130,16 +165,22 @@
                 </ul>
               </div>
 
-              <button class="accordion-btn" aria-expanded="false">From other sources</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                From other sources
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Linked third-party accounts (Google, Facebook)</li>
                   <li>Advertisers, affiliates, public records, mentions</li>
                 </ul>
               </div>
 
-              <button class="accordion-btn" aria-expanded="false">Automatically collected</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                Automatically collected
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Device details, IP address, cookies, metadata</li>
                   <li>Approximate location (U.S.), clipboard (with permission)</li>
@@ -149,6 +190,20 @@
             </div>
 
             <h3 style="margin-top:12px">If your account is compromised</h3>
+            <div class="progress-tracker">
+              <div class="progress-step active">
+                <div class="progress-dot">1</div>
+                <div class="progress-label">Secure Account</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">2</div>
+                <div class="progress-label">Review Connections</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">3</div>
+                <div class="progress-label">Report & Document</div>
+              </div>
+            </div>
             <ol class="muted">
               <li>Change your password & enable two-factor authentication (2FA).</li>
               <li>Revoke connected apps and unlink social accounts; document impersonation evidence.</li>
@@ -194,8 +249,12 @@
               </div>
 
               <div style="margin-top:12px">
-                <button id="tiktokTip" class="btn" aria-controls="tiktokTipText">Give me a quick tip</button>
-                <button class="btn-outline" onclick="document.querySelector('[data-tab=\"instagram\"]').click()">View Instagram</button>
+                <button id="tiktokTip" class="btn" aria-controls="tiktokTipText">
+                  <i class="fas fa-lightbulb"></i> Give me a quick tip
+                </button>
+                <button class="btn-outline" onclick="document.querySelector('[data-tab=\"instagram\"]').click()">
+                  <i class="fas fa-arrow-right"></i> View Instagram
+                </button>
                 <p id="tiktokTipText" class="muted" style="margin-top:10px"></p>
               </div>
             </div>
@@ -211,17 +270,23 @@
             <p class="muted">Policy applies to users 13+. Summary of main categories Instagram/Meta collects and shares.</p>
 
             <div class="accordion-group">
-              <button class="accordion-btn" aria-expanded="false">Provided by you</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                Provided by you
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Account info: username, profile photo, phone number, bio</li>
                   <li>User-generated content: photos, videos, stories, DMs</li>
-                  <li>Contacts you upload via “Find Friends”</li>
+                  <li>Contacts you upload via "Find Friends"</li>
                 </ul>
               </div>
 
-              <button class="accordion-btn" aria-expanded="false">Automatically collected</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                Automatically collected
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Device identifiers, IP, cookies, pixels, log file info</li>
                   <li>Location (exact GPS if allowed), analytics & usage patterns</li>
@@ -229,8 +294,11 @@
                 </ul>
               </div>
 
-              <button class="accordion-btn" aria-expanded="false">From other sources</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                From other sources
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Data from Meta affiliates, advertisers, and third-party apps</li>
                 </ul>
@@ -238,6 +306,20 @@
             </div>
 
             <h3 style="margin-top:12px">If something goes wrong</h3>
+            <div class="progress-tracker">
+              <div class="progress-step active">
+                <div class="progress-dot">1</div>
+                <div class="progress-label">Secure Account</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">2</div>
+                <div class="progress-label">Review Activity</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">3</div>
+                <div class="progress-label">Report & Document</div>
+              </div>
+            </div>
             <ol class="muted">
               <li>Change password, enable 2FA, and check active sessions.</li>
               <li>Remove connected apps and review account activity for unauthorized access.</li>
@@ -283,8 +365,12 @@
               </div>
 
               <div style="margin-top:12px">
-                <button id="igTip" class="btn">Give me a quick tip</button>
-                <button class="btn-outline" onclick="document.querySelector('[data-tab=&quot;snapchat&quot;]').click()">View Snapchat</button>
+                <button id="igTip" class="btn">
+                  <i class="fas fa-lightbulb"></i> Give me a quick tip
+                </button>
+                <button class="btn-outline" onclick="document.querySelector('[data-tab=\"snapchat\"]').click()">
+                  <i class="fas fa-arrow-right"></i> View Snapchat
+                </button>
                 <p id="igTipText" class="muted" style="margin-top:10px"></p>
               </div>
             </div>
@@ -300,8 +386,11 @@
             <p class="muted">Snapchat collects a range of user and device data; below are common categories and quick actions.</p>
 
             <div class="accordion-group">
-              <button class="accordion-btn" aria-expanded="false">Provided by you</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                Provided by you
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Account info (username, phone, email)</li>
                   <li>User-generated content: Snaps, Stories, Messages, Memories</li>
@@ -309,15 +398,21 @@
                 </ul>
               </div>
 
-              <button class="accordion-btn" aria-expanded="false">From other sources</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                From other sources
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Linked apps (Bitmoji, Snap Kit), ad/analytics partners</li>
                 </ul>
               </div>
 
-              <button class="accordion-btn" aria-expanded="false">Automatically collected</button>
-              <div class="panel hidden">
+              <button class="accordion-btn" aria-expanded="false">
+                Automatically collected
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
                 <ul class="muted">
                   <li>Device details, IP, cookies, sensor data</li>
                   <li>Approximate or precise location (GPS/Wi-Fi)</li>
@@ -327,6 +422,20 @@
             </div>
 
             <h3 style="margin-top:12px">If you suspect an account breach</h3>
+            <div class="progress-tracker">
+              <div class="progress-step active">
+                <div class="progress-dot">1</div>
+                <div class="progress-label">Secure Account</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">2</div>
+                <div class="progress-label">Download Data</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">3</div>
+                <div class="progress-label">Report & Document</div>
+              </div>
+            </div>
             <ol class="muted">
               <li>Change password, enable 2FA, and log out of other devices.</li>
               <li>Download your data if needed and document impersonation evidence.</li>
@@ -372,8 +481,12 @@
               </div>
 
               <div style="margin-top:12px">
-                <button id="snapTip" class="btn">Give me a quick tip</button>
-                <button class="btn-outline" onclick="document.querySelector('[data-tab=&quot;tiktok&quot;]').click()">Back to TikTok</button>
+                <button id="snapTip" class="btn">
+                  <i class="fas fa-lightbulb"></i> Give me a quick tip
+                </button>
+                <button class="btn-outline" onclick="document.querySelector('[data-tab=\"linkedin\"]').click()">
+                  <i class="fas fa-arrow-right"></i> View LinkedIn
+                </button>
                 <p id="snapTipText" class="muted" style="margin-top:10px"></p>
               </div>
             </div>
@@ -381,6 +494,174 @@
         </div>
       </article>
 
+      <!-- LinkedIn -->
+      <article id="linkedin" class="card platform" role="tabpanel" hidden>
+        <div class="grid">
+          <div class="main">
+            <h2>LinkedIn — What this platform collects</h2>
+            <p class="muted">LinkedIn collects professional and personal data to enhance networking and job opportunities.</p>
+
+            <div class="accordion-group">
+              <button class="accordion-btn" aria-expanded="false">
+                Provided by you
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
+                <ul class="muted">
+                  <li>Professional info: work history, education, skills, resume</li>
+                  <li>Account details: name, email, phone, profile photo</li>
+                  <li>User-generated content: posts, articles, comments, messages</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">
+                From other sources
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
+                <ul class="muted">
+                  <li>Professional contacts and network connections</li>
+                  <li>Employer-provided information for business accounts</li>
+                  <li>Third-party data providers for enrichment</li>
+                </ul>
+              </div>
+
+              <button class="accordion-btn" aria-expanded="false">
+                Automatically collected
+                <i class="accordion-icon fas fa-chevron-down"></i>
+              </button>
+              <div class="panel">
+                <ul class="muted">
+                  <li>Device information, IP address, cookies</li>
+                  <li>Usage data: profile views, search history, engagement</li>
+                  <li>Location data for job recommendations</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 style="margin-top:12px">If your account is compromised</h3>
+            <div class="progress-tracker">
+              <div class="progress-step active">
+                <div class="progress-dot">1</div>
+                <div class="progress-label">Secure Account</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">2</div>
+                <div class="progress-label">Review Profile</div>
+              </div>
+              <div class="progress-step">
+                <div class="progress-dot">3</div>
+                <div class="progress-label">Report & Document</div>
+              </div>
+            </div>
+            <ol class="muted">
+              <li>Change password immediately and enable two-factor authentication.</li>
+              <li>Review profile for unauthorized changes and check active sessions.</li>
+              <li>Report to LinkedIn support and document any suspicious activity.</li>
+            </ol>
+          </div>
+
+          <aside class="side">
+            <div class="card">
+              <div class="chart-row">
+                <div class="chart-wrap">
+                  <canvas id="linkedinChart" width="300" height="260" aria-label="LinkedIn risk chart"></canvas>
+                </div>
+
+                <div class="legend">
+                  <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+
+                  <div class="row legend-high">
+                    <div class="dot" style="background:var(--high)"></div>
+                    <div>
+                      <div class="title">High — Major collection & sharing</div>
+                      <div class="desc">Collects professional history, network data, and shares with recruiters and partners; used for professional profiling and advertising.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-medium">
+                    <div class="dot" style="background:var(--medium)"></div>
+                    <div>
+                      <div class="title">Medium — Moderate collection</div>
+                      <div class="desc">Collects professional data but with more user control over visibility and limited external sharing.</div>
+                    </div>
+                  </div>
+
+                  <div class="row legend-low">
+                    <div class="dot" style="background:var(--low)"></div>
+                    <div>
+                      <div class="title">Low — Minimal collection</div>
+                      <div class="desc">Only essential professional data and limited tracking.</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div style="margin-top:12px">
+                <button id="linkedinTip" class="btn">
+                  <i class="fas fa-lightbulb"></i> Give me a quick tip
+                </button>
+                <button class="btn-outline" onclick="document.querySelector('[data-tab=\"tiktok\"]').click()">
+                  <i class="fas fa-arrow-left"></i> Back to TikTok
+                </button>
+                <p id="linkedinTipText" class="muted" style="margin-top:10px"></p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Platform Comparison Section -->
+    <section id="comparison" class="card" style="margin-top:20px">
+      <h2>Platform Comparison</h2>
+      <p class="muted">Compare privacy practices across different social media platforms at a glance.</p>
+      
+      <div class="table-responsive">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Platform</th>
+              <th>Data Collection</th>
+              <th>Third-Party Sharing</th>
+              <th>Location Tracking</th>
+              <th>Overall Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>TikTok</strong></td>
+              <td>Extensive (biometrics, content, contacts)</td>
+              <td>High (advertisers, affiliates, partners)</td>
+              <td>Approximate location</td>
+              <td><span class="risk-badge risk-high">High</span></td>
+            </tr>
+            <tr>
+              <td><strong>Instagram</strong></td>
+              <td>Extensive (content, contacts, usage)</td>
+              <td>High (Meta ecosystem, advertisers)</td>
+              <td>Precise GPS (if allowed)</td>
+              <td><span class="risk-badge risk-high">High</span></td>
+            </tr>
+            <tr>
+              <td><strong>Snapchat</strong></td>
+              <td>Moderate (content, location, usage)</td>
+              <td>Medium (advertisers, analytics)</td>
+              <td>Precise GPS (if allowed)</td>
+              <td><span class="risk-badge risk-medium">Medium</span></td>
+            </tr>
+            <tr>
+              <td><strong>LinkedIn</strong></td>
+              <td>Professional (work history, network)</td>
+              <td>Medium (recruiters, partners)</td>
+              <td>For job recommendations</td>
+              <td><span class="risk-badge risk-medium">Medium</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section id="resources" class="card" style="margin-top:12px">
@@ -424,21 +705,30 @@
       activateTab('tiktok');
     })();
 
-    // Accordions
+    // Accordions with smooth animation
     (function(){
       document.querySelectorAll('.accordion-btn').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const panel = btn.nextElementSibling;
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
-          // close siblings in the same group
+          const expanded = btn.classList.contains('active');
+          
+          // Close all accordions in the same group
           const group = btn.closest('.accordion-group');
           if(group){
-            group.querySelectorAll('.accordion-btn').forEach(b=>b.setAttribute('aria-expanded','false'));
-            group.querySelectorAll('.panel').forEach(p=>p.classList.add('hidden'));
+            group.querySelectorAll('.accordion-btn').forEach(b=>{
+              b.classList.remove('active');
+              b.setAttribute('aria-expanded','false');
+            });
+            group.querySelectorAll('.panel').forEach(p=>{
+              p.classList.remove('active');
+            });
           }
+          
+          // Open clicked accordion if it wasn't already open
           if(!expanded){
+            btn.classList.add('active');
             btn.setAttribute('aria-expanded','true');
-            panel.classList.remove('hidden');
+            panel.classList.add('active');
           }
         });
       });
@@ -449,27 +739,51 @@
       const tiktokTips = [
         'Turn off contact syncing to avoid exposing phone contacts.',
         'Use an authenticator app for 2FA rather than SMS where possible.',
-        'Set your account to private to reduce unwanted followers.'
+        'Set your account to private to reduce unwanted followers.',
+        'Regularly review and remove connected third-party apps.',
+        'Disable personalized ads in your privacy settings.'
       ];
       const igTips = [
         'Switch to a private account to limit reach.',
         'Disconnect third-party apps you no longer use.',
-        'Turn off precise location when posting.'
+        'Turn off precise location when posting.',
+        'Review and limit data sharing with Facebook.',
+        'Use the "Download Your Information" tool to see what Instagram has on you.'
       ];
       const snapTips = [
         'Enable Ghost Mode to hide real-time location.',
         'Set Stories to Friends only and disable Quick Add.',
-        'Disable contact syncing to avoid exposing your phonebook.'
+        'Disable contact syncing to avoid exposing your phonebook.',
+        'Regularly clear your conversation history.',
+        'Review and adjust your ad preferences in settings.'
+      ];
+      const linkedinTips = [
+        'Review your public profile visibility settings.',
+        'Limit data sharing with third-party applications.',
+        'Adjust your ad preferences in the settings.',
+        'Be cautious about connecting with unknown professionals.',
+        'Regularly review your active sessions and log out unused devices.'
       ];
 
       const tBtn = document.getElementById('tiktokTip');
-      if(tBtn) tBtn.addEventListener('click', ()=> { document.getElementById('tiktokTipText').textContent = tiktokTips[Math.floor(Math.random()*tiktokTips.length)]; });
+      if(tBtn) tBtn.addEventListener('click', ()=> { 
+        document.getElementById('tiktokTipText').textContent = tiktokTips[Math.floor(Math.random()*tiktokTips.length)]; 
+      });
 
       const igBtn = document.getElementById('igTip');
-      if(igBtn) igBtn.addEventListener('click', ()=> { document.getElementById('igTipText').textContent = igTips[Math.floor(Math.random()*igTips.length)]; });
+      if(igBtn) igBtn.addEventListener('click', ()=> { 
+        document.getElementById('igTipText').textContent = igTips[Math.floor(Math.random()*igTips.length)]; 
+      });
 
       const sBtn = document.getElementById('snapTip');
-      if(sBtn) sBtn.addEventListener('click', ()=> { document.getElementById('snapTipText').textContent = snapTips[Math.floor(Math.random()*snapTips.length)]; });
+      if(sBtn) sBtn.addEventListener('click', ()=> { 
+        document.getElementById('snapTipText').textContent = snapTips[Math.floor(Math.random()*snapTips.length)]; 
+      });
+
+      const lBtn = document.getElementById('linkedinTip');
+      if(lBtn) lBtn.addEventListener('click', ()=> { 
+        document.getElementById('linkedinTipText').textContent = linkedinTips[Math.floor(Math.random()*linkedinTips.length)]; 
+      });
     })();
 
     // Chart creation (Chart.js must be loaded)
@@ -488,7 +802,8 @@
               datasets: [{
                 data: values,
                 backgroundColor: ['var(--low)','var(--medium)','var(--high)'].map(c => getComputedStyle(document.documentElement).getPropertyValue(c) || c),
-                hoverOffset: 6
+                hoverOffset: 6,
+                borderWidth: 0
               }]
             },
             options: {
@@ -497,7 +812,13 @@
               cutout: '70%',
               plugins: {
                 legend: { display: false },
-                tooltip: { callbacks: { label: function(context){ return context.label + ': ' + context.formattedValue + '%'; } } }
+                tooltip: { 
+                  callbacks: { 
+                    label: function(context){ 
+                      return context.label + ': ' + context.formattedValue + '%'; 
+                    } 
+                  } 
+                }
               }
             }
           });
@@ -507,12 +828,11 @@
         }
       }
 
-      // Create the three charts. Values tuned to emphasize High/Medium/Low per your notes.
-      // Values are percentages adding roughly to 100 (visual emphasis)
+      // Create the four charts. Values tuned to emphasize High/Medium/Low per your notes.
       window._tiktokChart = createDonut('tiktokChart', [8,22,70]);   // TikTok: High
       window._igChart = createDonut('igChart', [10,25,65]);         // Instagram: High
       window._snapChart = createDonut('snapChart', [22,38,40]);     // Snapchat: Medium
-
+      window._linkedinChart = createDonut('linkedinChart', [20,45,35]); // LinkedIn: Medium
     })();
 
     // Accessibility: allow keyboard tab switching (Left/Right arrows)
@@ -525,8 +845,24 @@
       });
     })();
 
-    // Risk scale reference (0-3 low, 4-7 medium, 8-10 high)
-    // If you'd like a numeric scoring engine later I can add it — for now charts are illustrative.
+    // Progress tracker interaction
+    (function(){
+      document.querySelectorAll('.progress-step').forEach(step => {
+        step.addEventListener('click', function() {
+          const tracker = this.closest('.progress-tracker');
+          const steps = tracker.querySelectorAll('.progress-step');
+          const index = Array.from(steps).indexOf(this);
+          
+          steps.forEach((s, i) => {
+            if (i <= index) {
+              s.classList.add('active');
+            } else {
+              s.classList.remove('active');
+            }
+          });
+        });
+      });
+    })();
   </script>
 </body>
 </html>
