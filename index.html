@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Privacy in a Networked World</title>
 
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Inline CSS: clean, minimal, teal/green theme -->
   <style>
     :root{
       --bg: #f6faf9;
@@ -42,7 +39,7 @@
     .hero h1{margin:0 0 6px;font-size:1.6rem}
     .hero p{margin:0;color:var(--muted)}
 
-    /* Home page specific */
+    /* Home page info */
     .intro-section{text-align:center;padding:40px 20px;max-width:800px;margin:0 auto}
     .intro-section h1{font-size:2.2rem;margin-bottom:16px;color:var(--accent-dark)}
     .intro-section p{font-size:1.1rem;margin-bottom:24px;color:var(--muted)}
@@ -118,7 +115,6 @@
     /* footer */
     footer{margin-top:18px;padding:12px;text-align:center;color:var(--muted);font-size:0.95rem}
 
-    /* Responsive */
     @media (max-width:880px){
       .grid{flex-direction:column}
       .side{width:100%}
@@ -176,7 +172,7 @@
         <a href="#" class="cta-button" id="explore-platforms-btn">Explore Platform Privacy</a>
       </div>
 
-      <!-- Platform Comparison Table (Home Page Only) -->
+      <!-- Platform Comparison Table -->
       <section id="comparison" class="card" style="margin-top:20px">
         <h2>Platform Comparison</h2>
         <p class="muted">Compare privacy practices across different social media platforms at a glance.</p>
@@ -234,7 +230,7 @@
         </div>
       </section>
 
-      <!-- Platform content area (single-page tabs) -->
+      <!-- Platform content area -->
       <section id="platforms">
 
         <!-- TikTok -->
@@ -530,7 +526,7 @@
                 <li>Report to Snapchat support and follow recovery steps.</li>
               </ol>
               
-              <!-- Quick tip button moved here and made bigger -->
+              <!-- Quick tips -->
               <div style="margin-top:32px; text-align: center;">
                 <button id="snapTip" class="btn" style="padding: 14px 22px; font-size: 1.1rem;">
                   <i class="fas fa-lightbulb"></i> Give me a quick tip
@@ -598,9 +594,7 @@
     </footer>
   </div>
 
-  <!-- Inline JS: minimal, reliable -->
   <script>
-    // Page navigation
     (function(){
       const homeLink = document.getElementById('home-link');
       const platformsLink = document.getElementById('platforms-link');
@@ -643,7 +637,6 @@
       showPage(homePage);
     })();
 
-    // Simple tab switching (T1): tabs with data-tab attribute
     (function(){
       const tabButtons = document.querySelectorAll('.tab-btn');
       const platforms = document.querySelectorAll('.platform');
@@ -670,14 +663,12 @@
       }
     })();
 
-    // Accordions with smooth animation
     (function(){
       document.querySelectorAll('.accordion-btn').forEach(btn=>{
         btn.addEventListener('click', ()=>{
           const panel = btn.nextElementSibling;
           const expanded = btn.classList.contains('active');
           
-          // Close all accordions in the same group
           const group = btn.closest('.accordion-group');
           if(group){
             group.querySelectorAll('.accordion-btn').forEach(b=>{
@@ -689,7 +680,6 @@
             });
           }
           
-          // Open clicked accordion if it wasn't already open
           if(!expanded){
             btn.classList.add('active');
             btn.setAttribute('aria-expanded','true');
@@ -739,14 +729,11 @@
       });
     })();
 
-    // Chart creation (Chart.js must be loaded)
     (function(){
       if(typeof Chart === 'undefined'){ console.error('Chart.js not loaded'); return; }
 
-      // Helper to create small donut chart
       function createDonut(canvasId, values){
         const ctx = document.getElementById(canvasId).getContext('2d');
-        // ensure canvas size is reasonable for appearance
         try {
           return new Chart(ctx, {
             type: 'doughnut',
@@ -785,14 +772,11 @@
         }
       }
 
-      // Create the three charts. Values tuned to emphasize High/Medium/Low per your notes.
-      // Using distinct colors: red for high, yellow for medium, green for low
       window._tiktokChart = createDonut('tiktokChart', [8,22,70]);   // TikTok: High
       window._igChart = createDonut('igChart', [10,25,65]);         // Instagram: High
       window._snapChart = createDonut('snapChart', [22,38,40]);     // Snapchat: Medium
     })();
 
-    // Accessibility: allow keyboard tab switching (Left/Right arrows)
     (function(){
       const btns = Array.from(document.querySelectorAll('.tab-btn'));
       document.addEventListener('keydown', (e)=>{
@@ -802,7 +786,6 @@
       });
     })();
 
-    // Progress tracker interaction
     (function(){
       document.querySelectorAll('.progress-step').forEach(step => {
         step.addEventListener('click', function() {
