@@ -1,92 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Instagram — Privacy</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Privacy Project — Home</title>
+
+  <!-- Chart.js CDN (must be present before script.js uses Chart) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <header class="header">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;padding:.9rem 0">
-      <div class="brand">Privacy Project — Instagram</div>
-      <nav style="display:flex;gap:.6rem">
-        <a href="index.html" class="hint">Home</a>
-        <a href="tiktok.html" class="hint">TikTok</a>
-        <a href="snapchat.html" class="hint">Snapchat</a>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="brand">Privacy Project</div>
+      <nav style="display:flex;gap:12px;align-items:center;">
+        <a href="#about" class="small-muted">About</a>
+        <a href="#platforms" class="small-muted">Platforms</a>
+        <a href="#resources" class="small-muted">Resources</a>
       </nav>
     </div>
   </header>
 
-  <main class="container" style="padding:1.25rem 0">
-    <section class="card">
-      <h2>📦 What Instagram collects</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:.6rem">
-        <div>
-          <h4 class="small-muted" style="font-weight:700">Provided by you</h4>
-          <ul class="small-muted">
-            <li>Account details (username, profile photo, bio)</li>
-            <li>User content: posts, stories, reels, messages</li>
-            <li>Contacts you choose to upload</li>
-          </ul>
+  <main class="container" style="padding-top:18px;">
+
+    <section class="card" style="text-align:center;background:linear-gradient(90deg,#eef2ff,#fdf2f8);">
+      <h1 style="margin:0;font-size:1.8rem">Making Social Media Privacy Easy</h1>
+      <p class="small-muted" style="margin-top:8px;max-width:760px;margin-left:auto;margin-right:auto;">
+        Interactive, bite-sized explanations of what platforms collect, how they share it, and what actions you can take right now.
+      </p>
+      <div style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <a class="btn" href="tiktok.html" style="background:black;color:white"><span style="color:var(--tiktok1)">●</span> TikTok</a>
+        <a class="btn" href="instagram.html" style="background:linear-gradient(90deg,var(--ig1),var(--ig2),var(--ig3))">Instagram</a>
+        <a class="btn" href="snapchat.html" style="background:var(--snap);color:black">Snapchat</a>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:18px;">
+      <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;">
+        <div style="flex:1;min-width:260px">
+          <h3 style="margin:0 0 6px">Platform Comparison</h3>
+          <p class="small-muted">Quick view of how platforms compare on collection, sharing, and transparency.</p>
+          <div style="margin-top:8px;">
+            <canvas id="platformRadar" style="width:100%;height:260px"></canvas>
+          </div>
         </div>
-        <div>
-          <h4 class="small-muted" style="font-weight:700">Automatically collected</h4>
-          <ul class="small-muted">
-            <li>Device identifiers, IP, cookies, pixels</li>
-            <li>Location (exact GPS if allowed), usage & analytics</li>
-            <li>Camera & photo access when permitted</li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="small-muted" style="font-weight:700">From other sources</h4>
-          <ul class="small-muted">
-            <li>Meta affiliates, advertisers, third-party partners</li>
-          </ul>
+
+        <div style="width:320px">
+          <div class="legend-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div style="font-weight:800">Risk Level Key</div>
+              <div style="font-size:0.85rem;color:var(--muted)">What the colors mean</div>
+            </div>
+
+            <div class="legend-row legend-high">
+              <div class="legend-dot" style="background:var(--high)"></div>
+              <div>
+                <div class="legend-title">High — Major collection & sharing</div>
+                <div class="legend-desc">Collects identity, messages, location, biometrics, browsing & device data and shares broadly with advertisers, affiliates, or partners. Used for ads, profiling, and AI training — higher exposure if breached.</div>
+              </div>
+            </div>
+
+            <div class="legend-row legend-medium">
+              <div class="legend-dot" style="background:var(--medium)"></div>
+              <div>
+                <div class="legend-title">Medium — Moderate collection</div>
+                <div class="legend-desc">Collects many data types (device, usage, contacts) but shares less externally or limits retention/cross-platform tracking.</div>
+              </div>
+            </div>
+
+            <div class="legend-row legend-low">
+              <div class="legend-dot" style="background:var(--low)"></div>
+              <div>
+                <div class="legend-title">Low — Minimal collection</div>
+                <div class="legend-desc">Only essential account data; limited tracking and sharing.</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="card" style="margin-top:1rem">
-      <h3>⚙️ How Instagram uses & shares data</h3>
-      <p class="small-muted">Instagram uses data to personalize content & ads, improve products, and enforce policies. Data is shared across Meta and with advertisers and service providers; this cross-app sharing contributes to a higher privacy risk profile.</p>
-    </section>
+    <section style="margin-top:18px;" class="grid-2">
+      <div class="card col-main">
+        <h4 style="margin-bottom:6px">Interactive Quiz</h4>
+        <p class="small-muted">Which platform collects biometric data (face/voice) with consent?</p>
+        <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="quiz-btn btn-alt quiz-btn" data-answer="Instagram">Instagram</button>
+          <button class="quiz-btn btn-alt quiz-btn" data-answer="TikTok">TikTok</button>
+          <button class="quiz-btn btn-alt quiz-btn" data-answer="Snapchat">Snapchat</button>
+        </div>
+        <p id="quizResult" style="margin-top:8px;color:var(--muted)"></p>
+      </div>
 
-    <section class="card" style="margin-top:1rem">
-      <h3>🚦 Risk Rating</h3>
-      <div class="risk-wrapper" style="margin-top:.6rem">
-        <canvas id="igDonutSmall" class="risk-canvas"></canvas>
-        <div class="legend-card">
-          <div style="font-weight:700;margin-bottom:.5rem">Risk Key</div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--high)"></div><div><strong>High</strong> — Major collection & sharing: cross-app tracking across Meta, broad data collection (location, device, content).</div></div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--med)"></div><div><strong>Medium</strong> — Moderate collection; some sharing but controls exist.</div></div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--low)"></div><div><strong>Low</strong> — Minimal collection & limited sharing.</div></div>
+      <div class="card col-side">
+        <h4 style="margin:0 0 8px">Privacy Tip</h4>
+        <p id="randomTip" class="small-muted">Click for a quick practical tip</p>
+        <div style="margin-top:8px;display:flex;gap:8px;">
+          <button id="tipBtn" class="btn">Give me a tip</button>
+          <a class="btn btn-alt" href="tiktok.html">Explore TikTok</a>
         </div>
       </div>
-      <p class="hint" style="margin-top:.6rem">Why High for Instagram: collecting device & location data plus sharing across Meta services and with advertisers leads to major collection and broad profiling.</p>
     </section>
 
-    <section class="card" style="margin-top:1rem">
-      <h3>🛡️ How to protect your Instagram</h3>
-      <ol class="small-muted">
-        <li>Set Account → Privacy → Private account to limit visibility.</li>
-        <li>Review "Apps and Websites" and disconnect unused integrations.</li>
-        <li>Turn off precise location and restrict camera access.</li>
-        <li>Use strong passwords and enable 2FA.</li>
-      </ol>
-      <div style="margin-top:.6rem">
-        <button class="btn btn-primary" data-tip-list='["Turn on private account for posts.","Disconnect third-party apps.","Turn off precise location."]' data-target="igTipText">Show a tip</button>
-        <a href="index.html" class="btn btn-outline" style="margin-left:.6rem">Back</a>
+    <section style="margin-top:18px;" class="card">
+      <h4 style="margin:0 0 8px">Quick Links</h4>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a class="card" href="tiktok.html" style="min-width:220px;padding:12px;">TikTok — Data & tips</a>
+        <a class="card" href="instagram.html" style="min-width:220px;padding:12px;">Instagram — Data & tips</a>
+        <a class="card" href="snapchat.html" style="min-width:220px;padding:12px;">Snapchat — Data & tips</a>
       </div>
-      <p id="igTipText" class="hint" style="margin-top:.6rem"></p>
     </section>
 
   </main>
 
-  <footer class="footer">© 2025 Social Media Privacy Project</footer>
+  <footer class="footer">© 2025 Social Media Privacy Project — Zoie, Allie & Joon</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- main script last -->
   <script src="script.js"></script>
 </body>
 </html>
