@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Snapchat — Privacy Breakdown</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(2,6,23,0.08);}
+    .snap-yellow { background: #FFFC00; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <nav class="bg-yellow-400 p-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <a href="index.html" class="font-bold">Privacy Project</a>
+      <div class="space-x-3">
+        <a href="tiktok.html" class="hover:underline">TikTok</a>
+        <a href="instagram.html" class="hover:underline">Instagram</a>
+        <a href="snapchat.html" class="underline">Snapchat</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="snap-yellow text-black py-10">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl font-extrabold">Snapchat</h1>
+      <p class="mt-2 max-w-2xl">Highlights of what Snapchat collects and easy actions to protect your account.</p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-12 space-y-8">
+
+    <section class="bg-white rounded-2xl p-6 shadow card-hover">
+      <h2 class="text-2xl font-bold mb-3">📦 What Snapchat collects</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div>
+          <h4 class="font-semibold">Provided by you</h4>
+          <ul class="list-disc pl-6 text-sm mt-2">
+            <li>Account info (username, phone, email)</li>
+            <li>User-generated content: Snaps, Stories, messages</li>
+            <li>Contacts you upload via Find Friends</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Automatically collected</h4>
+          <ul class="list-disc pl-6 text-sm mt-2">
+            <li>Device details, IP, cookies, sensors</li>
+            <li>Precise or approximate location (GPS/Wi-Fi)</li>
+            <li>Engagement patterns, lens/filter usage</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 shadow">
+      <h2 class="text-2xl font-bold mb-3">⚙️ How Snapchat uses & shares data</h2>
+      <ul class="list-disc pl-6 text-sm space-y-2">
+        <li>To deliver and improve the app, personalized content and ads</li>
+        <li>Shared with service providers, analytics partners, advertisers</li>
+        <li>Stored/processed internationally; retained for service and legal needs</li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 shadow">
+      <h2 class="text-2xl font-bold mb-3">🚦 Risk Rating</h2>
+      <canvas id="snapDonut" class="w-full h-56"></canvas>
+      <p class="mt-3 text-sm text-gray-600">Snapchat commonly collects location and engagement data; consider who can message and view your Story.</p>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 shadow">
+      <h2 class="text-2xl font-bold mb-3">🛡️ How to protect your Snapchat</h2>
+      <ol class="list-decimal pl-6 space-y-2 text-sm">
+        <li>Privacy settings → set Story to Friends or Custom.</li>
+        <li>Disable Quick Add / contact syncing if you want fewer connections.</li>
+        <li>Limit location sharing (Ghost Mode in Snap Map).</li>
+        <li>Enable login verification (2FA).</li>
+      </ol>
+      <div class="mt-4">
+        <button id="snapTip" class="px-4 py-2 rounded-lg bg-black text-white">Give me a Snapchat tip</button>
+        <a href="index.html" class="ml-3 px-4 py-2 rounded-lg border">Back to home</a>
+      </div>
+      <p id="snapTipText" class="mt-3 text-sm text-gray-600"></p>
+    </section>
+
+  </main>
+
+  <footer class="bg-gray-900 text-white py-6 text-center">© 2025 Social Media Privacy Project</footer>
+
+  <script>
+    const sCtx = document.getElementById('snapDonut').getContext('2d');
+    new Chart(sCtx, {
+      type:'doughnut',
+      data:{ labels:['Low','Medium','High'], datasets:[{ data:[20,30,50], backgroundColor:['#10B981','#FBBF24','#EF4444'] }]},
+      options:{ responsive:true, plugins:{ legend:{ position:'bottom' }}}
+    });
+
+    document.getElementById('snapTip').addEventListener('click', () => {
+      const tips = [
+        'Enable Ghost Mode in Snap Map to hide your real-time location.',
+        'Set Stories to Friends only and limit who can contact you.',
+        'Turn off contact syncing to avoid exposing your phonebook.'
+      ];
+      document.getElementById('snapTipText').textContent = tips[Math.floor(Math.random()*tips.length)];
+    });
+
+    // reveal
+    const obs = new IntersectionObserver(entries=> entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('opacity-100','translate-y-0'); }), {threshold:0.12});
+    document.querySelectorAll('section').forEach(s=>{ s.classList.add('opacity-0','translate-y-6','transition','duration-700'); obs.observe(s); });
+  </script>
+</body>
+</html>
