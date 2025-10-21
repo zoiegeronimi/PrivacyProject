@@ -1,95 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>TikTok — Privacy</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <header class="header">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;padding:.9rem 0">
-      <div class="brand">Privacy Project — TikTok</div>
-      <nav style="display:flex;gap:.6rem">
-        <a href="index.html" class="hint">Home</a>
-        <a href="instagram.html" class="hint">Instagram</a>
-        <a href="snapchat.html" class="hint">Snapchat</a>
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+      <div class="brand">Privacy Project</div>
+      <nav style="display:flex;gap:12px">
+        <a href="index.html" class="small-muted">Home</a>
+        <a href="instagram.html" class="small-muted">Instagram</a>
+        <a href="snapchat.html" class="small-muted">Snapchat</a>
       </nav>
     </div>
   </header>
 
-  <main class="container" style="padding:1.25rem 0">
-    <section class="card">
-      <h2>📦 What TikTok collects</h2>
-      <div style="display:grid;gap:.6rem;margin-top:.6rem">
-        <button class="accordion">Provided by you</button>
-        <div class="panel hidden">
-          <ul class="small-muted">
-            <li>Account info: name, age, email</li>
-            <li>User-generated content: videos, comments, messages, metadata</li>
-            <li>Payment details, survey responses, ID verification documents</li>
-          </ul>
+  <main class="container" style="padding-top:18px;">
+    <section class="card grid-2">
+      <div class="col-main">
+        <h2 style="margin:0 0 8px">TikTok — What is collected</h2>
+        <p class="small-muted">(Policy applies to users 13+)</p>
+
+        <div class="accordion-group" style="margin-top:12px">
+          <button class="accordion-btn">Provided by you</button>
+          <div class="panel hidden">
+            <ul>
+              <li>Account info (name, age, email)</li>
+              <li>User content: videos, comments, messages</li>
+              <li>Payment details, survey responses, ID verification docs</li>
+            </ul>
+          </div>
+
+          <button class="accordion-btn">From other sources</button>
+          <div class="panel hidden">
+            <ul>
+              <li>Linked accounts (Google, Facebook), advertisers, affiliates, public records</li>
+            </ul>
+          </div>
+
+          <button class="accordion-btn">Automatically collected</button>
+          <div class="panel hidden">
+            <ul>
+              <li>Device details, IP, cookies, metadata, engagement patterns</li>
+              <li>Approximate location (U.S.), clipboard (with permission)</li>
+              <li>Biometric identifiers (face/voice) with consent</li>
+            </ul>
+          </div>
         </div>
 
-        <button class="accordion">From other sources</button>
-        <div class="panel hidden">
-          <ul class="small-muted">
-            <li>Linked third-party accounts (Google, Facebook)</li>
-            <li>Advertisers, affiliates, public records, mentions by others</li>
-          </ul>
-        </div>
-
-        <button class="accordion">Automatically collected</button>
-        <div class="panel hidden">
-          <ul class="small-muted">
-            <li>Device details, IP address, cookies</li>
-            <li>Approximate location in U.S., clipboard (with permission)</li>
-            <li>Biometric identifiers (face/voice) with consent; activity & engagement metadata</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" style="margin-top:1rem">
-      <h3>⚙️ How TikTok uses & shares data</h3>
-      <p class="small-muted">TikTok uses data for personalization (recommendations & ads), product development, research, and to train algorithms/AI. It shares data with service providers, ad partners, corporate affiliates, and in specific legal situations.</p>
-    </section>
-
-    <section class="card" style="margin-top:1rem">
-      <h3>🚦 Risk Rating</h3>
-      <div class="risk-wrapper" style="margin-top:.6rem">
-        <canvas id="tiktokDonutSmall" class="risk-canvas"></canvas>
-        <div class="legend-card">
-          <div style="font-weight:700;margin-bottom:.5rem">Risk Key</div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--high)"></div><div><strong>High</strong> — Major collection & sharing: identity, messages, contacts, biometrics, browsing & device data used for ads/AI and shared with advertisers & partners.</div></div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--med)"></div><div><strong>Medium</strong> — Moderate collection; some sharing but fewer integrations or shorter retention.</div></div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--low)"></div><div><strong>Low</strong> — Minimal collection & limited sharing.</div></div>
+        <div style="margin-top:12px">
+          <h4 style="margin:0 0 6px">If your account is compromised</h4>
+          <ol class="small-muted" style="padding-left:18px;">
+            <li>Change password & enable 2FA immediately</li>
+            <li>Revoke third-party app access and unlink accounts</li>
+            <li>Report impersonation to TikTok support & document evidence</li>
+          </ol>
         </div>
       </div>
-      <p class="hint" style="margin-top:.6rem">Why High for TikTok: your notes show TikTok collects identity, messages, contacts, clipboard (with permission), browsing history, metadata, and explicitly mentions biometrics and algorithm training — these factors together indicate major collection and sharing.</p>
-    </section>
 
-    <section class="card" style="margin-top:1rem">
-      <h3>🛡️ How to protect your TikTok account</h3>
-      <ol class="small-muted">
-        <li>Set Account → Privacy & safety → Private account; limit who can duet/comment.</li>
-        <li>Security → enable Two-Factor Authentication (2FA).</li>
-        <li>Limit contact syncing and revoke third-party app access.</li>
-        <li>Download or delete data if you want to remove traces; document & report impersonation or password theft.</li>
-      </ol>
-      <div style="margin-top:.6rem">
-        <button class="btn btn-primary" data-tip-list='["Turn off contact syncing to avoid exposing phone contacts.","Enable 2FA and use an authenticator app.","Set account to private for tighter control."]' data-target="tTipText">Give me a TikTok tip</button>
-        <a href="index.html" class="btn btn-outline" style="margin-left:.6rem">Back</a>
-      </div>
-      <p id="tTipText" class="hint" style="margin-top:.6rem"></p>
-    </section>
+      <aside class="col-side">
+        <div class="card">
+          <div class="chart-row">
+            <div class="chart-wrap">
+              <canvas id="tiktokMini"></canvas>
+            </div>
+            <div class="legend-box">
+              <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
 
+              <div class="legend-row legend-high">
+                <div class="legend-dot" style="background:var(--high)"></div>
+                <div>
+                  <div class="legend-title">High — Major collection & sharing</div>
+                  <div class="legend-desc">Collects identity, messages, contacts, biometrics, device & browsing data; shares with advertisers, affiliates, and partners; used for ad personalization & AI training.</div>
+                </div>
+              </div>
+
+              <div class="legend-row legend-medium">
+                <div class="legend-dot" style="background:var(--medium)"></div>
+                <div>
+                  <div class="legend-title">Medium — Moderate collection</div>
+                  <div class="legend-desc">Collects many data types but may limit external sharing relative to highest-risk platforms.</div>
+                </div>
+              </div>
+
+              <div class="legend-row legend-low">
+                <div class="legend-dot" style="background:var(--low)"></div>
+                <div>
+                  <div class="legend-title">Low — Minimal collection</div>
+                  <div class="legend-desc">Only essential data and limited sharing.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <button id="tiktokTipBtn" class="btn" style="background:var(--tiktok1);color:#000">Give me a tip</button>
+            <a class="btn btn-alt" href="index.html" style="margin-left:8px">Back home</a>
+            <p id="tiktokTipText" style="margin-top:8px;color:var(--muted)"></p>
+          </div>
+        </div>
+      </aside>
+    </section>
   </main>
 
   <footer class="footer">© 2025 Social Media Privacy Project</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
+  <script>
+    // attach tip for TikTok
+    (function(){
+      const tips = [
+        'Turn off contact syncing to avoid exposing phone contacts.',
+        'Use app-based authenticator for 2FA when possible.',
+        'Set account to private to reduce unwanted followers.'
+      ];
+      const btn = document.getElementById('tiktokTipBtn');
+      if(btn) btn.addEventListener('click', ()=> document.getElementById('tiktokTipText').textContent = tips[Math.floor(Math.random()*tips.length)]);
+    })();
+  </script>
 </body>
 </html>
