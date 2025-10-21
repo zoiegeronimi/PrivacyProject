@@ -300,6 +300,14 @@
                 <li>Revoke connected apps and unlink social accounts; document impersonation evidence.</li>
                 <li>Report to TikTok support and follow recovery steps.</li>
               </ol>
+              
+              <!-- Quick tip button moved here -->
+              <div style="margin-top:16px">
+                <button id="tiktokTip" class="btn" aria-controls="tiktokTipText">
+                  <i class="fas fa-lightbulb"></i> Give me a quick tip
+                </button>
+                <p id="tiktokTipText" class="muted" style="margin-top:10px"></p>
+              </div>
             </div>
 
             <aside class="side">
@@ -337,16 +345,6 @@
                     </div>
 
                   </div>
-                </div>
-
-                <div style="margin-top:12px">
-                  <button id="tiktokTip" class="btn" aria-controls="tiktokTipText">
-                    <i class="fas fa-lightbulb"></i> Give me a quick tip
-                  </button>
-                  <button class="btn-outline" onclick="document.querySelector('[data-tab=\"instagram\"]').click()">
-                    <i class="fas fa-arrow-right"></i> View Instagram
-                  </button>
-                  <p id="tiktokTipText" class="muted" style="margin-top:10px"></p>
                 </div>
               </div>
             </aside>
@@ -416,6 +414,14 @@
                 <li>Remove connected apps and review account activity for unauthorized access.</li>
                 <li>Report impersonation and keep screenshots as evidence.</li>
               </ol>
+              
+              <!-- Quick tip button moved here -->
+              <div style="margin-top:16px">
+                <button id="igTip" class="btn">
+                  <i class="fas fa-lightbulb"></i> Give me a quick tip
+                </button>
+                <p id="igTipText" class="muted" style="margin-top:10px"></p>
+              </div>
             </div>
 
             <aside class="side">
@@ -453,16 +459,6 @@
                     </div>
 
                   </div>
-                </div>
-
-                <div style="margin-top:12px">
-                  <button id="igTip" class="btn">
-                    <i class="fas fa-lightbulb"></i> Give me a quick tip
-                  </button>
-                  <button class="btn-outline" onclick="document.querySelector('[data-tab=\"snapchat\"]').click()">
-                    <i class="fas fa-arrow-right"></i> View Snapchat
-                  </button>
-                  <p id="igTipText" class="muted" style="margin-top:10px"></p>
                 </div>
               </div>
             </aside>
@@ -532,6 +528,14 @@
                 <li>Download your data if needed and document impersonation evidence.</li>
                 <li>Report to Snapchat support and follow recovery steps.</li>
               </ol>
+              
+              <!-- Quick tip button moved here -->
+              <div style="margin-top:16px">
+                <button id="snapTip" class="btn">
+                  <i class="fas fa-lightbulb"></i> Give me a quick tip
+                </button>
+                <p id="snapTipText" class="muted" style="margin-top:10px"></p>
+              </div>
             </div>
 
             <aside class="side">
@@ -569,16 +573,6 @@
                     </div>
 
                   </div>
-                </div>
-
-                <div style="margin-top:12px">
-                  <button id="snapTip" class="btn">
-                    <i class="fas fa-lightbulb"></i> Give me a quick tip
-                  </button>
-                  <button class="btn-outline" onclick="document.querySelector('[data-tab=\"tiktok\"]').click()">
-                    <i class="fas fa-arrow-left"></i> Back to TikTok
-                  </button>
-                  <p id="snapTipText" class="muted" style="margin-top:10px"></p>
                 </div>
               </div>
             </aside>
@@ -761,7 +755,11 @@
               labels: ['Low','Medium','High'],
               datasets: [{
                 data: values,
-                backgroundColor: ['var(--low)','var(--medium)','var(--high)'].map(c => getComputedStyle(document.documentElement).getPropertyValue(c) || c),
+                backgroundColor: [
+                  getComputedStyle(document.documentElement).getPropertyValue('--low') || '#2a9d8f', // Green
+                  getComputedStyle(document.documentElement).getPropertyValue('--medium') || '#f4a261', // Yellow
+                  getComputedStyle(document.documentElement).getPropertyValue('--high') || '#e63946' // Red
+                ],
                 hoverOffset: 6,
                 borderWidth: 0
               }]
