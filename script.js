@@ -135,6 +135,27 @@
     });
   }
 
-  function makeRadarIfPresent(
+  function makeRadarIfPresent(elemId){
+    const el = document.getElementById(elemId);
+    if(!el) return;
+    if(typeof Chart === 'undefined'){ console.error('Chart.js not loaded'); return; }
+    const ctx = el.getContext('2d');
+    new Chart(ctx, {
+      type:'radar',
+      data:{
+        labels:['Data Collection','Ad Targeting','Location','Third-Party Sharing','Transparency'],
+        datasets:[
+          {label:'TikTok', data:[5,5,4,5,2], borderColor:'#06b6d4', backgroundColor:'rgba(6,182,212,0.08)', pointBackgroundColor:'#06b6d4'},
+          {label:'Instagram', data:[5,5,4,5,2], borderColor:'#8134af', backgroundColor:'rgba(129,52,175,0.06)', pointBackgroundColor:'#8134af'},
+          {label:'Snapchat', data:[4,4,5,4,3], borderColor:'#facc15', backgroundColor:'rgba(250,204,21,0.06)', pointBackgroundColor:'#facc15'}
+        ]
+      },
+      options:{responsive:true,scales:{r:{beginAtZero:true,max:5}}}
+    });
+  }
 
-  
+  function getCssVar(name){
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#ccc';
+  }
+
+})();
