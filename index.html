@@ -1,110 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Social Media Privacy Project</title>
-  <link rel="stylesheet" href="style.css">
+  <title>TikTok — Privacy</title>
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <header class="header">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:.9rem 0">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
       <div class="brand">Privacy Project</div>
-      <nav style="display:flex;gap:1rem">
-        <a href="#about" class="hint">About</a>
-        <a href="#platforms" class="hint">Platforms</a>
-        <a href="#resources" class="hint">Resources</a>
+      <nav style="display:flex;gap:12px">
+        <a href="index.html" class="small-muted">Home</a>
+        <a href="instagram.html" class="small-muted">Instagram</a>
+        <a href="snapchat.html" class="small-muted">Snapchat</a>
       </nav>
     </div>
   </header>
 
-  <main class="container" style="padding:1.5rem 0">
-    <section class="card" style="text-align:center">
-      <h1 style="font-size:1.8rem;margin:.2rem 0">Making Social Media Privacy Easy</h1>
-      <p class="small-muted">Interactive guides, clear summaries, and steps to protect your account on TikTok, Instagram, and Snapchat.</p>
-      <div style="margin-top:1rem;display:flex;gap:.6rem;justify-content:center">
-        <a href="tiktok.html" class="btn" style="background:#000;color:#fff;border-radius:10px;padding:.5rem .9rem">TikTok</a>
-        <a href="instagram.html" class="btn" style="background:linear-gradient(90deg,var(--ig1),var(--ig2));color:#fff;border-radius:10px">Instagram</a>
-        <a href="snapchat.html" class="btn" style="background:var(--snap);color:#000;border-radius:10px">Snapchat</a>
-      </div>
-    </section>
+  <main class="container" style="padding-top:18px;">
+    <section class="card grid-2">
+      <div class="col-main">
+        <h2 style="margin:0 0 8px">TikTok — What is collected</h2>
+        <p class="small-muted">(Policy applies to users 13+)</p>
 
-    <section class="card" style="margin-top:1rem">
-      <h3 style="margin:0 0 .5rem 0">Platform comparison</h3>
-      <div style="display:grid;grid-template-columns:1fr 240px;gap:1rem;align-items:center">
-        <canvas id="platformRadar" style="height:220px"></canvas>
-        <div class="legend-card">
-          <div style="font-weight:700;margin-bottom:.5rem">Risk Key</div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--high)"></div><div><strong>High</strong> — Major data collection & sharing: identity, device & browsing data, messages/contacts/biometrics, used for personalization/AI and shared with advertisers/partners.</div></div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--med)"></div><div><strong>Medium</strong> — Moderate collection & sharing: many personal data types but fewer third-party integrations and more user controls/shorter retention.</div></div>
-          <div class="legend-row"><div class="color-dot" style="background:var(--low)"></div><div><strong>Low</strong> — Minimal collection: essential account data only; limited sharing and stronger user control.</div></div>
+        <div class="accordion-group" style="margin-top:12px">
+          <button class="accordion-btn">Provided by you</button>
+          <div class="panel hidden">
+            <ul>
+              <li>Account info (name, age, email)</li>
+              <li>User content: videos, comments, messages</li>
+              <li>Payment details, survey responses, ID verification docs</li>
+            </ul>
+          </div>
+
+          <button class="accordion-btn">From other sources</button>
+          <div class="panel hidden">
+            <ul>
+              <li>Linked accounts (Google, Facebook), advertisers, affiliates, public records</li>
+            </ul>
+          </div>
+
+          <button class="accordion-btn">Automatically collected</button>
+          <div class="panel hidden">
+            <ul>
+              <li>Device details, IP, cookies, metadata, engagement patterns</li>
+              <li>Approximate location (U.S.), clipboard (with permission)</li>
+              <li>Biometric identifiers (face/voice) with consent</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <h4 style="margin:0 0 6px">If your account is compromised</h4>
+          <ol class="small-muted" style="padding-left:18px;">
+            <li>Change password & enable 2FA immediately</li>
+            <li>Revoke third-party app access and unlink accounts</li>
+            <li>Report impersonation to TikTok support & document evidence</li>
+          </ol>
         </div>
       </div>
-    </section>
 
-    <section class="card" style="margin-top:1rem">
-      <h3 style="margin:0 0 .5rem 0">Try the quiz</h3>
-      <p id="quizQuestion" class="small-muted">Which platform mentions biometric identifiers like face/voice prints (with consent)?</p>
-      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem">
-        <button class="quiz-btn btn-outline" data-answer="Instagram">Instagram</button>
-        <button class="quiz-btn btn-outline" data-answer="TikTok">TikTok</button>
-        <button class="quiz-btn btn-outline" data-answer="Snapchat">Snapchat</button>
-      </div>
-      <p id="quizResult" style="margin-top:.6rem" class="hint"></p>
+      <aside class="col-side">
+        <div class="card">
+          <div class="chart-row">
+            <div class="chart-wrap">
+              <canvas id="tiktokMini"></canvas>
+            </div>
+            <div class="legend-box">
+              <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
 
-      <hr style="margin:.8rem 0">
+              <div class="legend-row legend-high">
+                <div class="legend-dot" style="background:var(--high)"></div>
+                <div>
+                  <div class="legend-title">High — Major collection & sharing</div>
+                  <div class="legend-desc">Collects identity, messages, contacts, biometrics, device & browsing data; shares with advertisers, affiliates, and partners; used for ad personalization & AI training.</div>
+                </div>
+              </div>
 
-      <div style="display:flex;gap:.6rem;align-items:center">
-        <div>
-          <div style="font-weight:700">Privacy Tip of the Day</div>
-          <p id="randomTip" class="small-muted" style="margin:.4rem 0">Click the button for a tip.</p>
+              <div class="legend-row legend-medium">
+                <div class="legend-dot" style="background:var(--medium)"></div>
+                <div>
+                  <div class="legend-title">Medium — Moderate collection</div>
+                  <div class="legend-desc">Collects many data types but may limit external sharing relative to highest-risk platforms.</div>
+                </div>
+              </div>
+
+              <div class="legend-row legend-low">
+                <div class="legend-dot" style="background:var(--low)"></div>
+                <div>
+                  <div class="legend-title">Low — Minimal collection</div>
+                  <div class="legend-desc">Only essential data and limited sharing.</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <button id="tiktokTipBtn" class="btn" style="background:var(--tiktok1);color:#000">Give me a tip</button>
+            <a class="btn btn-alt" href="index.html" style="margin-left:8px">Back home</a>
+            <p id="tiktokTipText" style="margin-top:8px;color:var(--muted)"></p>
+          </div>
         </div>
-        <div style="margin-left:auto">
-          <button id="tipBtn" class="btn btn-primary">Give me a tip</button>
-        </div>
-      </div>
+      </aside>
     </section>
-
-    <section style="margin-top:1rem">
-      <h3 style="margin:0 0 .5rem 0">Platforms</h3>
-      <div class="platform-grid">
-        <a href="tiktok.html" class="card" style="display:block;text-decoration:none;color:inherit">
-          <strong>TikTok</strong>
-          <p class="small-muted" style="margin:.4rem 0 0 0">Extensive personalization, biometrics mentioned, broad sharing with partners.</p>
-        </a>
-        <a href="instagram.html" class="card" style="display:block;text-decoration:none;color:inherit">
-          <strong>Instagram</strong>
-          <p class="small-muted" style="margin:.4rem 0 0 0">Large data collection across Meta services and cross-platform tracking.</p>
-        </a>
-        <a href="snapchat.html" class="card" style="display:block;text-decoration:none;color:inherit">
-          <strong>Snapchat</strong>
-          <p class="small-muted" style="margin:.4rem 0 0 0">Collects location and engagement data; more limited external sharing than Meta/TikTok.</p>
-        </a>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="footer">© 2025 Social Media Privacy Project — Built by Zoie, Allie & Joon</footer>
+  <footer class="footer">© 2025 Social Media Privacy Project</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
   <script>
-    // radar chart on index
-    const ctx = document.getElementById('platformRadar').getContext('2d');
-    new Chart(ctx, {
-      type:'radar',
-      data:{
-        labels:['Data Collection','Ad Targeting','Location Tracking','Third-Party Sharing','Transparency'],
-        datasets:[
-          {label:'TikTok', data:[5,5,4,5,2], borderColor:'#06b6d4', backgroundColor:'rgba(6,182,212,0.08)'},
-          {label:'Instagram', data:[5,5,4,5,2], borderColor:'#8134af', backgroundColor:'rgba(129,52,175,0.07)'},
-          {label:'Snapchat', data:[4,4,5,3,3], borderColor:'#facc15', backgroundColor:'rgba(250,204,21,0.07)'}
-        ]
-      },
-      options:{ responsive:true, scales:{r:{beginAtZero:true, max:5}}}
-    });
+    // attach tip for TikTok
+    (function(){
+      const tips = [
+        'Turn off contact syncing to avoid exposing phone contacts.',
+        'Use app-based authenticator for 2FA when possible.',
+        'Set account to private to reduce unwanted followers.'
+      ];
+      const btn = document.getElementById('tiktokTipBtn');
+      if(btn) btn.addEventListener('click', ()=> document.getElementById('tiktokTipText').textContent = tips[Math.floor(Math.random()*tips.length)]);
+    })();
   </script>
 </body>
 </html>
