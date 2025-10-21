@@ -1,113 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Social Media Privacy Project</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* subtle neon/glow utilities */
+    .glow { box-shadow: 0 8px 30px rgba(99,102,241,0.12); }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(2,6,23,0.12); }
+    .tik-tok-accent { --accent1:#25F4EE; --accent2:#EE1D52; }
+    .ig-gradient { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
+    .snap-yellow { --snap:#FFFC00; }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans scroll-smooth">
+<body class="bg-gray-50 text-gray-900 antialiased">
 
-  <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="text-xl font-bold text-indigo-600">Privacy Project</h1>
-      <nav>
-        <ul class="flex space-x-6">
-          <li><a href="#about" class="hover:text-indigo-600">About</a></li>
-          <li><a href="#platforms" class="hover:text-indigo-600">Platforms</a></li>
-          <li><a href="#resources" class="hover:text-indigo-600">Resources</a></li>
-        </ul>
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
+    <div class="container mx-auto flex items-center justify-between px-6 py-4">
+      <h1 class="text-xl font-extrabold text-indigo-600">Privacy Project</h1>
+      <nav class="space-x-4 text-sm">
+        <a href="#about" class="hover:text-indigo-600">About</a>
+        <a href="#platforms" class="hover:text-indigo-600">Platforms</a>
+        <a href="#resources" class="hover:text-indigo-600">Resources</a>
       </nav>
     </div>
   </header>
 
-  <section class="bg-indigo-600 text-white text-center py-16 px-6">
-    <h2 class="text-4xl font-bold mb-4">Making Social Media Privacy Easy</h2>
-    <p class="max-w-2xl mx-auto text-lg">SUBTITLE HERE</p>
-  </section>
-
-  <section id="about" class="container mx-auto py-12 px-6">
-    <h3 class="text-2xl font-semibold mb-4">About This Project</h3>
-    <p class="text-lg leading-relaxed mb-4">
-      DESCRIPTION HERE
-    </p>
-  </section>
-
-  <section id="platforms" class="bg-gray-100 py-12 px-6">
-    <div class="container mx-auto">
-      <h3 class="text-2xl font-semibold mb-6">Explore by Platform</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white shadow rounded-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-bold mb-2 text-indigo-600">Social Media 1</h4>
-          <p class="text-gray-600 mb-4">Understand the tracking and risks.</p>
-          <a href="socialmedia1.html" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 inline-block">Learn More</a>
-        </div>
-        <div class="bg-white shadow rounded-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-bold mb-2 text-pink-600">Social Media 2</h4>
-          <p class="text-gray-600 mb-4">Understand the tracking and risks.</p>
-          <a href="socialmedia2.html" class="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 inline-block">Learn More</a>
-        </div>
-        <div class="bg-white shadow rounded-lg p-6 hover:shadow-xl transition transform hover:-translate-y-1">
-          <h4 class="text-xl font-bold mb-2 text-blue-500">Social Media 3</h4>
-          <p class="text-gray-600 mb-4">Breakdown of privacy practices.</p>
-          <a href="socialmedia3.html" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 inline-block">Learn More</a>
+  <main>
+    <!-- HERO -->
+    <section class="bg-indigo-600 text-white py-16">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Making Social Media Privacy Easy</h2>
+        <p class="max-w-2xl mx-auto text-lg md:text-xl opacity-90">Interactive guides, clear summaries, and quick actions so you can control what platforms know about you.</p>
+        <div class="mt-8 flex justify-center gap-4">
+          <a href="tiktok.html" class="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg shadow hover:opacity-95 card-hover">
+            <span style="color:var(--accent1,#25F4EE)">●</span> TikTok
+          </a>
+          <a href="instagram.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow ig-gradient text-white card-hover">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect rx="4" width="24" height="24" fill="white" opacity="0.12"/></svg> Instagram
+          </a>
+          <a href="snapchat.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow" style="background:#FFFC00">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" fill="black" opacity="0.06"/></svg> Snapchat
+          </a>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="container mx-auto mt-12">
-      <h3 class="text-xl font-semibold mb-4">Helpful Resources</h3>
-      <ul class="list-disc list-inside text-lg space-y-2 text-gray-700">
+    <!-- ABOUT -->
+    <section id="about" class="container mx-auto px-6 py-12">
+      <div class="max-w-4xl mx-auto text-center">
+        <h3 class="text-2xl font-bold mb-3">About this project</h3>
+        <p class="text-lg leading-relaxed text-gray-700">
+          We translate complex privacy policies into bite-sized explanations and give clear steps you can take if something goes wrong.
+          Start with TikTok, Instagram, and Snapchat — pick a platform, learn what data they collect, and follow the step-by-step tips.
+        </p>
+      </div>
+    </section>
+
+    <!-- COMPARISON / CHART + QUIZ + TIP -->
+    <section id="platforms" class="bg-white py-12">
+      <div class="container mx-auto px-6 grid gap-8 lg:grid-cols-2 items-start">
+
+        <div class="p-6 rounded-2xl shadow glow">
+          <h4 class="text-xl font-semibold mb-4">Platform Comparison</h4>
+          <canvas id="platformRadar" class="w-full h-64"></canvas>
+          <p class="mt-4 text-sm text-gray-600">Quick visual of relative risk (Data Collection, Ad Targeting, Location, Third-Party Sharing, Transparency).</p>
+        </div>
+
+        <div class="p-6 rounded-2xl shadow">
+          <h4 class="text-xl font-semibold mb-4">Interactive Quiz</h4>
+          <div class="space-y-3">
+            <p id="quizQuestion" class="font-medium">Which platform collects biometric data (like face/voice) with consent?</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button class="quiz-btn px-3 py-2 rounded-lg border" data-answer="Instagram">Instagram</button>
+              <button class="quiz-btn px-3 py-2 rounded-lg border" data-answer="TikTok">TikTok</button>
+              <button class="quiz-btn px-3 py-2 rounded-lg border" data-answer="Snapchat">Snapchat</button>
+            </div>
+            <p id="quizResult" class="mt-2 text-sm"></p>
+          </div>
+
+          <hr class="my-4">
+
+          <h5 class="font-semibold">Privacy Tip of the Day</h5>
+          <p id="randomTip" class="text-gray-700 mt-2">Click the button for a quick tip.</p>
+          <div class="mt-3 flex gap-3">
+            <button id="tipBtn" class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:opacity-95">Give me a tip</button>
+            <a href="resources.html" class="px-4 py-2 rounded-lg border">More resources</a>
+          </div>
+        </div>
+
+        <!-- CARDS -->
+        <div class="lg:col-span-2 grid gap-6 md:grid-cols-3">
+          <a href="tiktok.html" class="group bg-black text-white rounded-2xl p-6 hover:scale-105 transition card-hover">
+            <div class="flex items-center justify-between">
+              <h5 class="font-bold text-lg">TikTok</h5>
+              <div class="text-pink-400">🎵</div>
+            </div>
+            <p class="mt-4 text-sm opacity-90">How TikTok collects data & quick safety steps.</p>
+          </a>
+
+          <a href="instagram.html" class="group rounded-2xl p-6 hover:scale-105 transition card-hover ig-gradient text-white">
+            <div class="flex items-center justify-between">
+              <h5 class="font-bold text-lg">Instagram</h5>
+              <div>📸</div>
+            </div>
+            <p class="mt-4 text-sm opacity-90">What Instagram tracks and how to protect yourself.</p>
+          </a>
+
+          <a href="snapchat.html" class="group rounded-2xl p-6 hover:scale-105 transition card-hover" style="background: #FFFC00;">
+            <div class="flex items-center justify-between">
+              <h5 class="font-bold text-lg">Snapchat</h5>
+              <div>👻</div>
+            </div>
+            <p class="mt-4 text-sm opacity-90">Snapchat privacy highlights and tips.</p>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RESOURCES -->
+    <section id="resources" class="container mx-auto px-6 py-12">
+      <h3 class="text-2xl font-bold mb-4">Helpful Resources</h3>
+      <ul class="grid gap-2 sm:grid-cols-2">
         <li><a href="https://www.privacyrights.org/" target="_blank" class="text-indigo-600 hover:underline">Privacy Rights Clearinghouse</a></li>
-        <li><a href="https://www.eff.org/" target="_blank" class="text-indigo-600 hover:underline">Electronic Frontier Foundation (EFF)</a></li>
+        <li><a href="https://www.eff.org/" target="_blank" class="text-indigo-600 hover:underline">Electronic Frontier Foundation</a></li>
         <li><a href="https://www.consumer.ftc.gov/topics/privacy-identity-online-security" target="_blank" class="text-indigo-600 hover:underline">FTC: Privacy & Security</a></li>
-        <li><a href="https://www.dataprivacymanager.net/blog/" target="_blank" class="text-indigo-600 hover:underline">Data Privacy Manager Blog</a></li>
+        <li><a href="https://privacy.commonsense.org/" target="_blank" class="text-indigo-600 hover:underline">Common Sense Privacy Reports</a></li>
       </ul>
-    </div>
+    </section>
+  </main>
 
-  <footer class="bg-gray-800 text-white text-center py-6 mt-12">
-    <p>&copy; 2025 Privacy Project. Built by Zoie, Allie, and Joon.</p>
+  <footer class="bg-gray-900 text-white py-6 text-center">
+    © 2025 Social Media Privacy Project — Built by Zoie, Allie & Joon
   </footer>
 
   <script>
-    const ctx = document.getElementById('riskChart').getContext('2d');
-    new Chart(ctx, {
+    /* ---------- Radar chart ---------- */
+    const radarCtx = document.getElementById('platformRadar').getContext('2d');
+    new Chart(radarCtx, {
       type: 'radar',
       data: {
-        labels: ['Data Collection', 'Ad Targeting', 'Location Tracking', 'Third-Party Sharing', 'Transparency'],
+        labels: ['Data Collection','Ad Targeting','Location Tracking','Third-Party Sharing','Transparency'],
         datasets: [
-          {
-            label: 'Social Media 1',
-            data: [4, 5, 4, 4, 2],
-            fill: true,
-            backgroundColor: 'rgba(99, 102, 241, 0.2)',
-            borderColor: 'rgb(99, 102, 241)',
-            pointBackgroundColor: 'rgb(99, 102, 241)'
-          },
-          {
-            label: 'Social Media 2',
-            data: [5, 5, 5, 5, 1],
-            fill: true,
-            backgroundColor: 'rgba(236, 72, 153, 0.2)',
-            borderColor: 'rgb(236, 72, 153)',
-            pointBackgroundColor: 'rgb(236, 72, 153)'
-          },
-          {
-            label: 'Social Media 3',
-            data: [4, 4, 3, 4, 2],
-            fill: true,
-            backgroundColor: 'rgba(59, 130, 246, 0.2)',
-            borderColor: 'rgb(59, 130, 246)',
-            pointBackgroundColor: 'rgb(59, 130, 246)'
-          }
+          { label:'TikTok', data:[5,5,4,5,2], fill:true, backgroundColor:'rgba(34,197,94,0.08)', borderColor:'#06b6d4', pointBackgroundColor:'#06b6d4'},
+          { label:'Instagram', data:[4,5,4,4,3], fill:true, backgroundColor:'rgba(59,130,246,0.08)', borderColor:'#8134af', pointBackgroundColor:'#8134af'},
+          { label:'Snapchat', data:[4,4,5,4,3], fill:true, backgroundColor:'rgba(234,179,8,0.08)', borderColor:'#facc15', pointBackgroundColor:'#facc15'}
         ]
       },
-      options: {
-        responsive: true,
-        scales: { r: { beginAtZero: true, max: 5 } }
-      }
+      options: { responsive:true, scales:{ r:{ beginAtZero:true, max:5 } } }
+    });
+
+    /* ---------- Quiz ---------- */
+    const correctAnswer = 'TikTok';
+    document.querySelectorAll('.quiz-btn').forEach(btn=>{
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.quiz-btn').forEach(b=>b.classList.remove('bg-indigo-600','text-white'));
+        btn.classList.add('bg-indigo-600','text-white');
+        const result = document.getElementById('quizResult');
+        if (btn.dataset.answer === correctAnswer) {
+          result.textContent = "Correct — TikTok mentions biometric identifiers (with consent) in its policy. ✅";
+        } else {
+          result.textContent = "Not quite — check TikTok's policy for biometric identifiers (hint: it mentions face/voice biometrics with consent).";
+        }
+      });
+    });
+
+    /* ---------- Tip randomizer ---------- */
+    const tips = [
+      'Use a password manager to create and store unique passwords.',
+      'Enable two-factor authentication (2FA) on your accounts.',
+      'Regularly review and remove third-party app access.',
+      'Turn off location sharing when you don’t need it.',
+      'Limit ad personalization in app settings and browser preferences.'
+    ];
+    document.getElementById('tipBtn').addEventListener('click', () => {
+      const t = tips[Math.floor(Math.random()*tips.length)];
+      document.getElementById('randomTip').textContent = t;
+    });
+
+    /* ---------- Scroll reveal (simple) ---------- */
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('opacity-100','translate-y-0');
+      });
+    }, {threshold:0.15});
+    document.querySelectorAll('section, .card-hover').forEach(el=>{
+      el.classList.add('opacity-0','translate-y-6','transition','duration-700','ease-out');
+      observer.observe(el);
     });
   </script>
 </body>
 </html>
+
