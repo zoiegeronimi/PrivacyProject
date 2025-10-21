@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Instagram — Privacy Breakdown</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .ig-gradient { background: linear-gradient(135deg,#f58529,#dd2a7b,#8134af); }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(2,6,23,0.08);}
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <nav class="bg-white border-b p-4">
+    <div class="container mx-auto flex justify-between items-center px-4">
+      <a href="index.html" class="font-bold">Privacy Project</a>
+      <div class="space-x-3">
+        <a href="tiktok.html" class="hover:underline">TikTok</a>
+        <a href="instagram.html" class="underline">Instagram</a>
+        <a href="snapchat.html" class="hover:underline">Snapchat</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="ig-gradient text-white py-12">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl font-extrabold">Instagram</h1>
+      <p class="mt-2 text-white/90 max-w-2xl">Breakdown of data practices and straightforward steps to protect your presence.</p>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-12 space-y-8">
+    <section class="bg-white rounded-2xl p-6 shadow card-hover">
+      <h2 class="text-2xl font-bold mb-3">📦 What Instagram collects</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        <div>
+          <h4 class="font-semibold">Provided by you</h4>
+          <ul class="list-disc pl-6 text-sm mt-2">
+            <li>Account info: username, profile photo, bio</li>
+            <li>User content: posts, stories, DMs</li>
+            <li>Contacts you choose to upload</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">Automatically collected</h4>
+          <ul class="list-disc pl-6 text-sm mt-2">
+            <li>Device identifiers, IP, cookies, pixels</li>
+            <li>Location (exact GPS if allowed)</li>
+            <li>Usage & analytics (engagement patterns)</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold">From other sources</h4>
+          <ul class="list-disc pl-6 text-sm mt-2">
+            <li>Data from Meta affiliates</li>
+            <li>Advertisers & third-party partners</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 shadow">
+      <h2 class="text-2xl font-bold mb-3">⚙️ How Instagram uses data</h2>
+      <ul class="list-disc pl-6 text-sm space-y-2">
+        <li>Personalized content & advertisements</li>
+        <li>Product development, analytics, and tests</li>
+        <li>To verify accounts & enforce policies</li>
+      </ul>
+
+      <h3 class="mt-6 font-semibold">🔁 How data is shared</h3>
+      <p class="text-sm mt-2">Instagram shares data within Meta and with service providers, advertisers, and in response to legal requests.</p>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 shadow">
+      <h2 class="text-2xl font-bold mb-3">🚦 Risk Rating</h2>
+      <canvas id="igDonut" class="w-full h-56"></canvas>
+      <p class="mt-3 text-sm text-gray-600">Instagram collects a broad set of data and shares across Meta services — pay attention to connected apps and profile visibility.</p>
+    </section>
+
+    <section class="bg-white rounded-2xl p-6 shadow">
+      <h2 class="text-2xl font-bold mb-3">🛡️ How to protect your Instagram</h2>
+      <ol class="list-decimal pl-6 space-y-2 text-sm">
+        <li>Use the Account Privacy toggle to switch to a private account (Profiles → Settings → Privacy).</li>
+        <li>Review “Apps and Websites” to remove third-party integrations.</li>
+        <li>Turn off precise location and limit camera/photo permissions.</li>
+        <li>Use strong passwords and enable 2FA.</li>
+      </ol>
+      <div class="mt-4 flex gap-3">
+        <button id="igTip" class="px-4 py-2 rounded-lg bg-white border">Show a quick tip</button>
+        <a href="index.html" class="px-4 py-2 rounded-lg border">Back to home</a>
+      </div>
+      <p id="igTipText" class="mt-3 text-sm text-gray-600"></p>
+    </section>
+  </main>
+
+  <footer class="bg-gray-900 text-white py-6 text-center">© 2025 Social Media Privacy Project</footer>
+
+  <script>
+    const igCtx = document.getElementById('igDonut').getContext('2d');
+    new Chart(igCtx, {
+      type:'doughnut',
+      data: { labels:['Low','Medium','High'], datasets:[{ data:[15,35,50], backgroundColor:['#10B981','#FBBF24','#EF4444'] }]},
+      options:{ responsive:true, plugins:{ legend:{ position:'bottom' }}}
+    });
+
+    document.getElementById('igTip').addEventListener('click', () => {
+      const tips = [
+        'Turn on account private to limit who sees your posts.',
+        'Disconnect third-party apps you no longer use.',
+        'Turn off precise location when sharing posts.'
+      ];
+      document.getElementById('igTipText').textContent = tips[Math.floor(Math.random()*tips.length)];
+    });
+
+    // reveal
+    const obs = new IntersectionObserver(entries=> entries.forEach(e=> { if(e.isIntersecting) e.target.classList.add('opacity-100','translate-y-0'); }), {threshold:0.12});
+    document.querySelectorAll('section').forEach(s=>{ s.classList.add('opacity-0','translate-y-6','transition','duration-700'); obs.observe(s); });
+  </script>
+</body>
+</html>
