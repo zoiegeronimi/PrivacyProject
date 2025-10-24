@@ -74,7 +74,7 @@
 
     /* Chart + legend */
     .chart-row{display:flex;gap:12px;align-items:center}
-    .chart-wrap{width:150px;height:140px}
+    .chart-wrap{width:100%;height:200px}
     canvas{display:block;max-width:100%}
     .legend{width:100%;max-width:220px;padding:10px;border-radius:10px;background:#fbfffe;border:1px solid rgba(6,10,10,0.04)}
     .legend .row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;border-radius:8px}
@@ -125,7 +125,7 @@
     @media (max-width:880px){
       .grid{flex-direction:column}
       .side{width:100%}
-      .chart-row{flex-direction:row;justify-content:flex-start}
+      .chart-row{flex-direction:column;justify-content:flex-start}
       .legend{max-width:100%}
       .progress-tracker{flex-wrap:wrap;gap:10px}
       .feature-grid{grid-template-columns:1fr}
@@ -740,34 +740,54 @@
     (function(){
       if(typeof Chart === 'undefined'){ console.error('Chart.js not loaded'); return; }
 
-      function createDonut(canvasId, values){
+      function createBarChart(canvasId, values){
         const ctx = document.getElementById(canvasId).getContext('2d');
         try {
           return new Chart(ctx, {
-            type: 'doughnut',
+            type: 'bar',
             data: {
-              labels: ['Low','Medium','High'],
+              labels: ['Low', 'Medium', 'High'],
               datasets: [{
                 data: values,
                 backgroundColor: [
-                  getComputedStyle(document.documentElement).getPropertyValue('--low') || '#2a9d8f', // Green
-                  getComputedStyle(document.documentElement).getPropertyValue('--medium') || '#f4a261', // Yellow
-                  getComputedStyle(document.documentElement).getPropertyValue('--high') || '#e63946' // Red
+                  getComputedStyle(document.documentElement).getPropertyValue('--low') || '#2a9d8f',
+                  getComputedStyle(document.documentElement).getPropertyValue('--medium') || '#f4a261',
+                  getComputedStyle(document.documentElement).getPropertyValue('--high') || '#e63946'
                 ],
-                hoverOffset: 6,
-                borderWidth: 0
+                borderWidth: 0,
+                barPercentage: 0.6,
+                categoryPercentage: 0.8
               }]
             },
             options: {
               responsive: true,
               maintainAspectRatio: false,
-              cutout: '70%',
+              indexAxis: 'y',
+              scales: {
+                x: {
+                  beginAtZero: true,
+                  max: 100,
+                  ticks: {
+                    callback: function(value) {
+                      return value + '%';
+                    }
+                  },
+                  grid: {
+                    display: false
+                  }
+                },
+                y: {
+                  grid: {
+                    display: false
+                  }
+                }
+              },
               plugins: {
                 legend: { display: false },
                 tooltip: { 
                   callbacks: { 
                     label: function(context){ 
-                      return context.label + ': ' + context.formattedValue + '%'; 
+                      return context.dataset.label + ': ' + context.formattedValue + '%'; 
                     } 
                   } 
                 }
@@ -780,9 +800,9 @@
         }
       }
 
-      window._tiktokChart = createDonut('tiktokChart', [8,22,70]);   // TikTok: High
-      window._igChart = createDonut('igChart', [10,25,65]);         // Instagram: High
-      window._snapChart = createDonut('snapChart', [22,38,40]);     // Snapchat: Medium
+      window._tiktokChart = createBarChart('tiktokChart', [8,22,70]);   // TikTok: High
+      window._igChart = createBarChart('igChart', [10,25,65]);         // Instagram: High
+      window._snapChart = createBarChart('snapChart', [22,38,40]);     // Snapchat: Medium
     })();
 
     (function(){
