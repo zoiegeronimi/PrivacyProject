@@ -738,6 +738,85 @@
     (function(){
       if(typeof Chart === 'undefined'){ console.error('Chart.js not loaded'); return; }
 
+      // Function to calculate risk percentages based on research data
+      function calculateRiskPercentages(platformData) {
+        // Calculate total score
+        const totalScore = Object.values(platformData).reduce((sum, score) => sum + score, 0);
+        
+        // Normalize to 100% for the bar chart
+        const normalizedData = {};
+        for (const [category, score] of Object.entries(platformData)) {
+          normalizedData[category] = (score / totalScore) * 100;
+        }
+        
+        // For the bar chart, we need to distribute into Low, Medium, High
+        // Based on the research, we'll assign:
+        // - User friendliness and user control/consent to Low risk (positive factors)
+        // - Data collection and transparency to Medium risk
+        // - Transgressions to High risk
+        
+        let low = 0;
+        let medium = 0;
+        let high = 0;
+        
+        // User friendliness contributes to Low risk (higher = lower risk)
+        if (platformData.userFriendliness !== undefined) {
+          low += platformData.userFriendliness;
+        }
+        
+        // User control and consent contributes to Low risk (higher = lower risk)
+        if (platformData.userControlConsent !== undefined) {
+          low += platformData.userControlConsent;
+        }
+        
+        // Data collection contributes to Medium risk
+        if (platformData.dataCollection !== undefined) {
+          medium += platformData.dataCollection;
+        }
+        
+        // Transparency contributes to Medium risk
+        if (platformData.transparency !== undefined) {
+          medium += platformData.transparency;
+        }
+        
+        // Transgressions contributes to High risk
+        if (platformData.transgressions !== undefined) {
+          high += platformData.transgressions;
+        }
+        
+        // Normalize to 100%
+        const total = low + medium + high;
+        low = (low / total) * 100;
+        medium = (medium / total) * 100;
+        high = (high / total) * 100;
+        
+        return [low, medium, high];
+      }
+
+      // Platform data from your research
+      const platformData = {
+        tiktok: {
+          userFriendliness: 0.9,
+          dataCollection: 4.42,
+          transgressions: 1.8,
+          transparency: 2.24,
+          userControlConsent: 4.9
+        },
+        instagram: {
+          userFriendliness: 1.3,
+          dataCollection: 6.67,
+          transgressions: 1.95,
+          transparency: 2.17,
+          userControlConsent: 3.75
+        },
+        snapchat: {
+          userFriendliness: 0.9,
+          dataCollection: 4.14,
+          transgressions: 1.2,
+          userControlConsent: 2.25
+        }
+      };
+
       function createBarChart(canvasId, values){
         const ctx = document.getElementById(canvasId).getContext('2d');
         try {
@@ -797,9 +876,10 @@
         }
       }
 
-      window._tiktokChart = createBarChart('tiktokChart', [8,22,70]);   // TikTok: High
-      window._igChart = createBarChart('igChart', [10,25,65]);         // Instagram: High
-      window._snapChart = createBarChart('snapChart', [22,38,40]);     // Snapchat: Medium
+      // Calculate and create charts with research-based data
+      window._tiktokChart = createBarChart('tiktokChart', calculateRiskPercentages(platformData.tiktok));
+      window._igChart = createBarChart('igChart', calculateRiskPercentages(platformData.instagram));
+      window._snapChart = createBarChart('snapChart', calculateRiskPercentages(platformData.snapchat));
     })();
 
     (function(){
