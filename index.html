@@ -74,7 +74,7 @@
 
     /* Chart + legend */
     .chart-container{display:flex;flex-direction:column;gap:12px}
-    .chart-wrap{width:100%;height:200px}
+    .chart-wrap{width:100%;height:240px}
     canvas{display:block;max-width:100%}
     .legend{width:100%;padding:10px;border-radius:10px;background:#fbfffe;border:1px solid rgba(6,10,10,0.04)}
     .legend .row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;border-radius:8px}
@@ -82,9 +82,11 @@
     .title{font-weight:700;font-size:0.95rem}
     .desc{color:var(--muted);font-size:0.88rem;margin-top:4px}
 
-    .legend-high{background:linear-gradient(90deg, rgba(11,135,127,0.06), rgba(11,135,127,0.02))}
-    .legend-medium{background:linear-gradient(90deg, rgba(14,165,164,0.06), rgba(14,165,164,0.02))}
-    .legend-low{background:linear-gradient(90deg, rgba(135,224,224,0.06), rgba(135,224,224,0.02))}
+    .legend-friendly{background:linear-gradient(90deg, rgba(135,224,224,0.06), rgba(135,224,224,0.02))}
+    .legend-collection{background:linear-gradient(90deg, rgba(14,165,164,0.06), rgba(14,165,164,0.02))}
+    .legend-transgressions{background:linear-gradient(90deg, rgba(11,135,127,0.06), rgba(11,135,127,0.02))}
+    .legend-transparency{background:linear-gradient(90deg, rgba(14,165,164,0.06), rgba(14,165,164,0.02))}
+    .legend-control{background:linear-gradient(90deg, rgba(135,224,224,0.06), rgba(135,224,224,0.02))}
 
     /* Accordion */
     .accordion-btn{width:100%;display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;border:1px solid rgba(5,36,35,0.04);background:#fbfdfc;cursor:pointer;font-weight:700;margin-top:8px;transition:var(--transition)}
@@ -317,33 +319,50 @@
               <div class="card">
                 <div class="chart-container">
                   <div class="chart-wrap">
-                    <canvas id="tiktokChart" width="300" height="260" aria-label="TikTok risk chart"></canvas>
+                    <canvas id="tiktokChart" width="300" height="260" aria-label="TikTok privacy metrics"></canvas>
                   </div>
 
                   <div class="legend" aria-hidden="false">
-                    <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+                    <div style="font-weight:800;margin-bottom:6px">Privacy Risk Metrics</div>
+                    <p class="muted" style="margin-bottom:12px; font-size:0.85rem;">Lower scores indicate better privacy practices</p>
 
-                    <div class="row legend-high">
-                      <div class="dot" style="background:var(--high)"></div>
-                      <div>
-                        <div class="title">High — Major collection & sharing</div>
-                        <div class="desc">Collects identity, messages, contacts, biometrics, device & browsing data; shares with advertisers, affiliates & partners; used for ad personalization and AI training.</div>
-                      </div>
-                    </div>
-
-                    <div class="row legend-medium">
-                      <div class="dot" style="background:var(--medium)"></div>
-                      <div>
-                        <div class="title">Medium — Moderate collection</div>
-                        <div class="desc">Collects many data types but shares less externally and may limit retention or cross-platform tracking.</div>
-                      </div>
-                    </div>
-
-                    <div class="row legend-low">
+                    <div class="row legend-friendly">
                       <div class="dot" style="background:var(--low)"></div>
                       <div>
-                        <div class="title">Low — Minimal collection</div>
-                        <div class="desc">Only essential account data; limited tracking and sharing.</div>
+                        <div class="title">User friendliness</div>
+                        <div class="desc">Lower score = more user-friendly privacy controls</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-collection">
+                      <div class="dot" style="background:var(--medium)"></div>
+                      <div>
+                        <div class="title">Data collection</div>
+                        <div class="desc">Lower score = less data collected</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-transgressions">
+                      <div class="dot" style="background:var(--high)"></div>
+                      <div>
+                        <div class="title">Transgressions</div>
+                        <div class="desc">Lower score = fewer privacy violations</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-transparency">
+                      <div class="dot" style="background:var(--medium)"></div>
+                      <div>
+                        <div class="title">Transparency</div>
+                        <div class="desc">Lower score = more transparent policies</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-control">
+                      <div class="dot" style="background:var(--low)"></div>
+                      <div>
+                        <div class="title">User control & consent</div>
+                        <div class="desc">Lower score = better user control over data</div>
                       </div>
                     </div>
 
@@ -418,7 +437,6 @@
                 <li>Report impersonation and keep screenshots as evidence.</li>
               </ol>
               
-              <!-- Quick tip button moved here and made bigger -->
               <div style="margin-top:32px; text-align: center;">
                 <button id="igTip" class="btn" style="padding: 14px 22px; font-size: 1.1rem;">
                   <i class="fas fa-lightbulb"></i> Give me a quick tip
@@ -431,33 +449,50 @@
               <div class="card">
                 <div class="chart-container">
                   <div class="chart-wrap">
-                    <canvas id="igChart" width="300" height="260" aria-label="Instagram risk chart"></canvas>
+                    <canvas id="igChart" width="300" height="260" aria-label="Instagram privacy metrics"></canvas>
                   </div>
 
                   <div class="legend">
-                    <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+                    <div style="font-weight:800;margin-bottom:6px">Privacy Risk Metrics</div>
+                    <p class="muted" style="margin-bottom:12px; font-size:0.85rem;">Lower scores indicate better privacy practices</p>
 
-                    <div class="row legend-high">
-                      <div class="dot" style="background:var(--high)"></div>
-                      <div>
-                        <div class="title">High — Major collection & sharing</div>
-                        <div class="desc">Collects identity, device & analytics data and shares across Meta services and advertisers; used for cross-app tracking and profiling.</div>
-                      </div>
-                    </div>
-
-                    <div class="row legend-medium">
-                      <div class="dot" style="background:var(--medium)"></div>
-                      <div>
-                        <div class="title">Medium — Moderate collection</div>
-                        <div class="desc">Collects many types but sharing is mostly within the Meta ecosystem or to partners.</div>
-                      </div>
-                    </div>
-
-                    <div class="row legend-low">
+                    <div class="row legend-friendly">
                       <div class="dot" style="background:var(--low)"></div>
                       <div>
-                        <div class="title">Low — Minimal collection</div>
-                        <div class="desc">Only essential data and limited sharing with external parties.</div>
+                        <div class="title">User friendliness</div>
+                        <div class="desc">Lower score = more user-friendly privacy controls</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-collection">
+                      <div class="dot" style="background:var(--medium)"></div>
+                      <div>
+                        <div class="title">Data collection</div>
+                        <div class="desc">Lower score = less data collected</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-transgressions">
+                      <div class="dot" style="background:var(--high)"></div>
+                      <div>
+                        <div class="title">Transgressions</div>
+                        <div class="desc">Lower score = fewer privacy violations</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-transparency">
+                      <div class="dot" style="background:var(--medium)"></div>
+                      <div>
+                        <div class="title">Transparency</div>
+                        <div class="desc">Lower score = more transparent policies</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-control">
+                      <div class="dot" style="background:var(--low)"></div>
+                      <div>
+                        <div class="title">User control & consent</div>
+                        <div class="desc">Lower score = better user control over data</div>
                       </div>
                     </div>
 
@@ -545,33 +580,42 @@
               <div class="card">
                 <div class="chart-container">
                   <div class="chart-wrap">
-                    <canvas id="snapChart" width="300" height="260" aria-label="Snapchat risk chart"></canvas>
+                    <canvas id="snapChart" width="300" height="260" aria-label="Snapchat privacy metrics"></canvas>
                   </div>
 
                   <div class="legend">
-                    <div style="font-weight:800;margin-bottom:6px">Risk Level Key</div>
+                    <div style="font-weight:800;margin-bottom:6px">Privacy Risk Metrics</div>
+                    <p class="muted" style="margin-bottom:12px; font-size:0.85rem;">Lower scores indicate better privacy practices</p>
 
-                    <div class="row legend-high">
-                      <div class="dot" style="background:var(--high)"></div>
-                      <div>
-                        <div class="title">High — Major collection & sharing</div>
-                        <div class="desc">Collects identity & device data and shares with advertisers & analytics partners; used for ad targeting and measurement.</div>
-                      </div>
-                    </div>
-
-                    <div class="row legend-medium">
-                      <div class="dot" style="background:var(--medium)"></div>
-                      <div>
-                        <div class="title">Medium — Moderate collection</div>
-                        <div class="desc">Collects location and engagement data; shares with partners but often retains shorter retention and fewer cross-app integrations.</div>
-                      </div>
-                    </div>
-
-                    <div class="row legend-low">
+                    <div class="row legend-friendly">
                       <div class="dot" style="background:var(--low)"></div>
                       <div>
-                        <div class="title">Low — Minimal collection</div>
-                        <div class="desc">Only essential data and limited sharing.</div>
+                        <div class="title">User friendliness</div>
+                        <div class="desc">Lower score = more user-friendly privacy controls</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-collection">
+                      <div class="dot" style="background:var(--medium)"></div>
+                      <div>
+                        <div class="title">Data collection</div>
+                        <div class="desc">Lower score = less data collected</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-transgressions">
+                      <div class="dot" style="background:var(--high)"></div>
+                      <div>
+                        <div class="title">Transgressions</div>
+                        <div class="desc">Lower score = fewer privacy violations</div>
+                      </div>
+                    </div>
+
+                    <div class="row legend-control">
+                      <div class="dot" style="background:var(--low)"></div>
+                      <div>
+                        <div class="title">User control & consent</div>
+                        <div class="desc">Lower score = better user control over data</div>
                       </div>
                     </div>
 
@@ -738,62 +782,7 @@
     (function(){
       if(typeof Chart === 'undefined'){ console.error('Chart.js not loaded'); return; }
 
-      // Function to calculate risk percentages based on research data
-      function calculateRiskPercentages(platformData) {
-        // Calculate total score
-        const totalScore = Object.values(platformData).reduce((sum, score) => sum + score, 0);
-        
-        // Normalize to 100% for the bar chart
-        const normalizedData = {};
-        for (const [category, score] of Object.entries(platformData)) {
-          normalizedData[category] = (score / totalScore) * 100;
-        }
-        
-        // For the bar chart, we need to distribute into Low, Medium, High
-        // Based on the research, we'll assign:
-        // - User friendliness and user control/consent to Low risk (positive factors)
-        // - Data collection and transparency to Medium risk
-        // - Transgressions to High risk
-        
-        let low = 0;
-        let medium = 0;
-        let high = 0;
-        
-        // User friendliness contributes to Low risk (higher = lower risk)
-        if (platformData.userFriendliness !== undefined) {
-          low += platformData.userFriendliness;
-        }
-        
-        // User control and consent contributes to Low risk (higher = lower risk)
-        if (platformData.userControlConsent !== undefined) {
-          low += platformData.userControlConsent;
-        }
-        
-        // Data collection contributes to Medium risk
-        if (platformData.dataCollection !== undefined) {
-          medium += platformData.dataCollection;
-        }
-        
-        // Transparency contributes to Medium risk
-        if (platformData.transparency !== undefined) {
-          medium += platformData.transparency;
-        }
-        
-        // Transgressions contributes to High risk
-        if (platformData.transgressions !== undefined) {
-          high += platformData.transgressions;
-        }
-        
-        // Normalize to 100%
-        const total = low + medium + high;
-        low = (low / total) * 100;
-        medium = (medium / total) * 100;
-        high = (high / total) * 100;
-        
-        return [low, medium, high];
-      }
-
-      // Platform data from your research
+      // Platform data from your research - hardcoded values
       const platformData = {
         tiktok: {
           userFriendliness: 0.9,
@@ -817,22 +806,56 @@
         }
       };
 
-      function createBarChart(canvasId, values){
+      function createBarChart(canvasId, platformName){
         const ctx = document.getElementById(canvasId).getContext('2d');
+        const data = platformData[platformName];
+        
+        // Get labels and values for the chart
+        const labels = [];
+        const values = [];
+        const backgroundColors = [];
+        
+        // Add each metric to the chart
+        if (data.userFriendliness !== undefined) {
+          labels.push('User Friendliness');
+          values.push(data.userFriendliness);
+          backgroundColors.push(getComputedStyle(document.documentElement).getPropertyValue('--low') || '#87e0e0');
+        }
+        
+        if (data.dataCollection !== undefined) {
+          labels.push('Data Collection');
+          values.push(data.dataCollection);
+          backgroundColors.push(getComputedStyle(document.documentElement).getPropertyValue('--medium') || '#0ea5a4');
+        }
+        
+        if (data.transgressions !== undefined) {
+          labels.push('Transgressions');
+          values.push(data.transgressions);
+          backgroundColors.push(getComputedStyle(document.documentElement).getPropertyValue('--high') || '#0b877f');
+        }
+        
+        if (data.transparency !== undefined) {
+          labels.push('Transparency');
+          values.push(data.transparency);
+          backgroundColors.push(getComputedStyle(document.documentElement).getPropertyValue('--medium') || '#0ea5a4');
+        }
+        
+        if (data.userControlConsent !== undefined) {
+          labels.push('User Control');
+          values.push(data.userControlConsent);
+          backgroundColors.push(getComputedStyle(document.documentElement).getPropertyValue('--low') || '#87e0e0');
+        }
+        
         try {
           return new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['Low', 'Medium', 'High'],
+              labels: labels,
               datasets: [{
                 data: values,
-                backgroundColor: [
-                  getComputedStyle(document.documentElement).getPropertyValue('--low') || '#87e0e0',
-                  getComputedStyle(document.documentElement).getPropertyValue('--medium') || '#0ea5a4',
-                  getComputedStyle(document.documentElement).getPropertyValue('--high') || '#0b877f'
-                ],
+                backgroundColor: backgroundColors,
                 borderWidth: 0,
-                barPercentage: 0.6,
+                barPercentage: 0.7,
                 categoryPercentage: 0.8
               }]
             },
@@ -842,14 +865,21 @@
               scales: {
                 y: {
                   beginAtZero: true,
-                  max: 100,
-                  ticks: {
-                    callback: function(value) {
-                      return value + '%';
+                  max: 8,
+                  title: {
+                    display: true,
+                    text: 'Privacy Risk Score',
+                    font: {
+                      size: 12
                     }
                   },
                   grid: {
-                    display: false
+                    display: true
+                  },
+                  ticks: {
+                    callback: function(value) {
+                      return value;
+                    }
                   }
                 },
                 x: {
@@ -863,7 +893,7 @@
                 tooltip: { 
                   callbacks: { 
                     label: function(context){ 
-                      return context.dataset.label + ': ' + context.formattedValue + '%'; 
+                      return context.dataset.label + ': ' + context.formattedValue; 
                     } 
                   } 
                 }
@@ -876,10 +906,10 @@
         }
       }
 
-      // Calculate and create charts with research-based data
-      window._tiktokChart = createBarChart('tiktokChart', calculateRiskPercentages(platformData.tiktok));
-      window._igChart = createBarChart('igChart', calculateRiskPercentages(platformData.instagram));
-      window._snapChart = createBarChart('snapChart', calculateRiskPercentages(platformData.snapchat));
+      // Create charts with individual metrics
+      window._tiktokChart = createBarChart('tiktokChart', 'tiktok');
+      window._igChart = createBarChart('igChart', 'instagram');
+      window._snapChart = createBarChart('snapChart', 'snapchat');
     })();
 
     (function(){
